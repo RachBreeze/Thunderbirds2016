@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GMPMissingPersonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationTypeID" Type="int" Nullable="false" />
+          <Property Name="Unique_ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Verified" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="SightingDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LocationTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LocationCode" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="misper ">
+          <Key>
+            <PropertyRef Name="Unique_ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Unique_ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Forenames" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Birth_Year" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="Status_Prior_To_Dormant" Type="varchar" MaxLength="50" />
+          <Property Name="Category" Type="varchar" MaxLength="50" />
+          <Property Name="Accomodation_Type" Type="varchar" MaxLength="50" />
+          <Property Name="Borough" Type="varchar" MaxLength="50" />
+          <Property Name="Output_Area" Type="varchar" MaxLength="50" />
+          <Property Name="Output_Area_CenX_EPSG27700" Type="varchar" MaxLength="50" />
+          <Property Name="Output_Area_CenY_EPSG27700" Type="varchar" MaxLength="50" />
+          <Property Name="Date_Went_Missing" Type="datetime" />
+          <Property Name="Date_Record_Created" Type="datetime" />
+          <Property Name="Date_Record_Updated" Type="datetime" />
+          <Property Name="Date_Last_Seen" Type="datetime" />
+          <Property Name="Date_Status_Changed_To_Unconfi" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Misper_Extended">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UniqueID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="image" Type="binary" MaxLength="50" />
+          <Property Name="Is_Dangerous" Type="char" MaxLength="1" />
+          <Property Name="TwitterName" Type="varchar" MaxLength="50" />
+          <Property Name="FacebookName" Type="varchar" MaxLength="50" />
+          <Property Name="InstagramName" Type="varchar" MaxLength="50" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+        </EntityType>
+        <EntityType Name="PhoneData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="DeviceID" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Locations_LocationTypes">
+          <End Role="misper " Type="Self.misper " Multiplicity="1" />
+          <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="misper ">
+              <PropertyRef Name="Unique_ID" />
+            </Principal>
+            <Dependent Role="Locations">
+              <PropertyRef Name="Unique_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Misper_Extended_Misper_Extended">
+          <End Role="misper " Type="Self.misper " Multiplicity="1" />
+          <End Role="Misper_Extended" Type="Self.Misper_Extended" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="misper ">
+              <PropertyRef Name="Unique_ID" />
+            </Principal>
+            <Dependent Role="Misper_Extended">
+              <PropertyRef Name="UniqueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneData_Locations">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="PhoneData" Type="Self.PhoneData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PhoneData">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GMPMissingPersonModelStoreContainer">
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocationTypes" EntityType="Self.LocationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="misper " EntityType="Self.misper " Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Misper_Extended" EntityType="Self.Misper_Extended" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhoneData" EntityType="Self.PhoneData" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Locations_LocationTypes" Association="Self.FK_Locations_LocationTypes">
+            <End Role="misper " EntitySet="misper " />
+            <End Role="Locations" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Misper_Extended_Misper_Extended" Association="Self.FK_Misper_Extended_Misper_Extended">
+            <End Role="misper " EntitySet="misper " />
+            <End Role="Misper_Extended" EntitySet="Misper_Extended" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneData_Locations" Association="Self.FK_PhoneData_Locations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="PhoneData" EntitySet="PhoneData" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GMPMissingPersonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="misper_">
+          <Key>
+            <PropertyRef Name="Unique_ID" />
+          </Key>
+          <Property Name="Unique_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Forenames" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Birth_Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status_Prior_To_Dormant" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Accomodation_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Borough" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Output_Area" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Output_Area_CenX_EPSG27700" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Output_Area_CenY_EPSG27700" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Went_Missing" Type="DateTime" Precision="3" />
+          <Property Name="Date_Record_Created" Type="DateTime" Precision="3" />
+          <Property Name="Date_Record_Updated" Type="DateTime" Precision="3" />
+          <Property Name="Date_Last_Seen" Type="DateTime" Precision="3" />
+          <Property Name="Date_Status_Changed_To_Unconfi" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Misper_Extended" Relationship="Self.FK_Misper_Extended_Misper_Extended" FromRole="misper_" ToRole="Misper_Extended" />
+          <NavigationProperty Name="Locations" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes1" FromRole="misper_" ToRole="Location" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Misper_Extended">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UniqueID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="image" Type="Binary" MaxLength="50" FixedLength="true" />
+          <Property Name="Is_Dangerous" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TwitterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FacebookName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InstagramName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <NavigationProperty Name="misper_" Relationship="Self.FK_Misper_Extended_Misper_Extended" FromRole="Misper_Extended" ToRole="misper_" />
+        </EntityType>
+        <Association Name="FK_Misper_Extended_Misper_Extended">
+          <End Role="misper_" Type="Self.misper_" Multiplicity="1" />
+          <End Role="Misper_Extended" Type="Self.Misper_Extended" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="misper_">
+              <PropertyRef Name="Unique_ID" />
+            </Principal>
+            <Dependent Role="Misper_Extended">
+              <PropertyRef Name="UniqueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GMPMissingPersonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="misper_" EntityType="Self.misper_" />
+          <EntitySet Name="Misper_Extended" EntityType="Self.Misper_Extended" />
+          <AssociationSet Name="FK_Misper_Extended_Misper_Extended" Association="Self.FK_Misper_Extended_Misper_Extended">
+            <End Role="misper_" EntitySet="misper_" />
+            <End Role="Misper_Extended" EntitySet="Misper_Extended" />
+          </AssociationSet>
+          <EntitySet Name="Locations" EntityType="GMPMissingPersonModel.Location" />
+          <EntitySet Name="LocationTypes" EntityType="GMPMissingPersonModel.LocationType" />
+          <EntitySet Name="PhoneDatas" EntityType="GMPMissingPersonModel.PhoneData" />
+          <AssociationSet Name="FK_Locations_LocationTypes" Association="GMPMissingPersonModel.FK_Locations_LocationTypes">
+            <End Role="LocationType" EntitySet="LocationTypes" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneData_Locations" Association="GMPMissingPersonModel.FK_PhoneData_Locations">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="PhoneData" EntitySet="PhoneDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locations_LocationTypes1" Association="GMPMissingPersonModel.FK_Locations_LocationTypes1">
+            <End Role="misper_" EntitySet="misper_" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Unique_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocationTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Verified" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="LocationType" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes" FromRole="Location" ToRole="LocationType" />
+          <NavigationProperty Name="PhoneDatas" Relationship="GMPMissingPersonModel.FK_PhoneData_Locations" FromRole="Location" ToRole="PhoneData" />
+          <NavigationProperty Name="misper_" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes1" FromRole="Location" ToRole="misper_" />
+          <Property Name="SightingDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="LocationType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationType1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Locations" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes" FromRole="LocationType" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="PhoneData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="DeviceID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Location" Relationship="GMPMissingPersonModel.FK_PhoneData_Locations" FromRole="PhoneData" ToRole="Location" />
+        </EntityType>
+        <Association Name="FK_Locations_LocationTypes">
+          <End Type="GMPMissingPersonModel.LocationType" Role="LocationType" Multiplicity="1" />
+          <End Type="GMPMissingPersonModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="LocationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneData_Locations">
+          <End Type="GMPMissingPersonModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="GMPMissingPersonModel.PhoneData" Role="PhoneData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PhoneData">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locations_LocationTypes1">
+          <End Type="GMPMissingPersonModel.misper_" Role="misper_" Multiplicity="1" />
+          <End Type="GMPMissingPersonModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="misper_">
+              <PropertyRef Name="Unique_ID" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="Unique_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GMPMissingPersonModelStoreContainer" CdmEntityContainer="GMPMissingPersonEntities">
+          <EntitySetMapping Name="misper_">
+            <EntityTypeMapping TypeName="GMPMissingPersonModel.misper_">
+              <MappingFragment StoreEntitySet="misper ">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Unique_ID" ColumnName="Unique_ID" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Forenames" ColumnName="Forenames" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birth_Year" ColumnName="Birth_Year" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Status_Prior_To_Dormant" ColumnName="Status_Prior_To_Dormant" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Accomodation_Type" ColumnName="Accomodation_Type" />
+                <ScalarProperty Name="Borough" ColumnName="Borough" />
+                <ScalarProperty Name="Output_Area" ColumnName="Output_Area" />
+                <ScalarProperty Name="Output_Area_CenX_EPSG27700" ColumnName="Output_Area_CenX_EPSG27700" />
+                <ScalarProperty Name="Output_Area_CenY_EPSG27700" ColumnName="Output_Area_CenY_EPSG27700" />
+                <ScalarProperty Name="Date_Went_Missing" ColumnName="Date_Went_Missing" />
+                <ScalarProperty Name="Date_Record_Created" ColumnName="Date_Record_Created" />
+                <ScalarProperty Name="Date_Record_Updated" ColumnName="Date_Record_Updated" />
+                <ScalarProperty Name="Date_Last_Seen" ColumnName="Date_Last_Seen" />
+                <ScalarProperty Name="Date_Status_Changed_To_Unconfi" ColumnName="Date_Status_Changed_To_Unconfi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Misper_Extended">
+            <EntityTypeMapping TypeName="GMPMissingPersonModel.Misper_Extended">
+              <MappingFragment StoreEntitySet="Misper_Extended">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UniqueID" ColumnName="UniqueID" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="Is_Dangerous" ColumnName="Is_Dangerous" />
+                <ScalarProperty Name="TwitterName" ColumnName="TwitterName" />
+                <ScalarProperty Name="FacebookName" ColumnName="FacebookName" />
+                <ScalarProperty Name="InstagramName" ColumnName="InstagramName" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="GMPMissingPersonModel.Location">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="SightingDate" ColumnName="SightingDate" />
+                <ScalarProperty Name="Verified" ColumnName="Verified" />
+                <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Unique_ID" ColumnName="Unique_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationTypes">
+            <EntityTypeMapping TypeName="GMPMissingPersonModel.LocationType">
+              <MappingFragment StoreEntitySet="LocationTypes">
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="LocationType1" ColumnName="LocationType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhoneDatas">
+            <EntityTypeMapping TypeName="GMPMissingPersonModel.PhoneData">
+              <MappingFragment StoreEntitySet="PhoneData">
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

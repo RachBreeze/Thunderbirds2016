@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GMPMissingPersonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="misper_">
+    <Key>
+      <PropertyRef Name="Unique_ID" />
+    </Key>
+    <Property Name="Unique_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Forenames" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Birth_Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status_Prior_To_Dormant" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Accomodation_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Borough" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Output_Area" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Output_Area_CenX_EPSG27700" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Output_Area_CenY_EPSG27700" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Date_Went_Missing" Type="DateTime" Precision="3" />
+    <Property Name="Date_Record_Created" Type="DateTime" Precision="3" />
+    <Property Name="Date_Record_Updated" Type="DateTime" Precision="3" />
+    <Property Name="Date_Last_Seen" Type="DateTime" Precision="3" />
+    <Property Name="Date_Status_Changed_To_Unconfi" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Misper_Extended" Relationship="Self.FK_Misper_Extended_Misper_Extended" FromRole="misper_" ToRole="Misper_Extended" />
+  </EntityType>
+  <EntityType Name="Misper_Extended">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UniqueID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="image" Type="Binary" MaxLength="50" FixedLength="true" Nullable="false" />
+    <Property Name="Is_Dangerous" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TwitterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FacebookName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="InstagramName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Latitude" Type="Double" Nullable="false" />
+    <Property Name="Longitude" Type="Double" Nullable="false" />
+    <NavigationProperty Name="misper_" Relationship="Self.FK_Misper_Extended_Misper_Extended" FromRole="Misper_Extended" ToRole="misper_" />
+  </EntityType>
+  <Association Name="FK_Misper_Extended_Misper_Extended">
+    <End Role="misper_" Type="Self.misper_" Multiplicity="1" />
+    <End Role="Misper_Extended" Type="Self.Misper_Extended" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="misper_">
+        <PropertyRef Name="Unique_ID" />
+      </Principal>
+      <Dependent Role="Misper_Extended">
+        <PropertyRef Name="UniqueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="misper_" EntityType="Self.misper_" />
+    <EntitySet Name="Misper_Extended" EntityType="Self.Misper_Extended" />
+    <AssociationSet Name="FK_Misper_Extended_Misper_Extended" Association="Self.FK_Misper_Extended_Misper_Extended">
+      <End Role="misper_" EntitySet="misper_" />
+      <End Role="Misper_Extended" EntitySet="Misper_Extended" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

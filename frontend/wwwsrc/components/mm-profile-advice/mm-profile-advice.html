@@ -1,0 +1,13 @@
+<div>
+     <md-list flex ng-if="ProfileAdvice.mmProfile.advice.length > 0">
+        <md-subheader class="md-no-sticky">Advice</md-subheader>
+        <div ng-repeat="pattern in ProfileAdvice.mmProfile.advice">
+            <md-list-item ng-repeat="advice in pattern.getAdvice()" class="md-3-line" ng-click="null">
+            <div class="md-list-item-text" layout="column">
+                <h3>{{ advice.title }}</h3>
+                <p>{{ advice.description }}</p>
+            </div>
+            </md-list-item>
+        </div>
+     </md-list>
+</div>

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GMPMissingPersonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="misper ">
+    <Key>
+      <PropertyRef Name="Unique_ID" />
+    </Key>
+    <Property Name="Unique_ID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Surname" Type="varchar" MaxLength="50" />
+    <Property Name="Forenames" Type="varchar" MaxLength="50" />
+    <Property Name="Gender" Type="varchar" MaxLength="50" />
+    <Property Name="Birth_Year" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Status_Prior_To_Dormant" Type="varchar" MaxLength="50" />
+    <Property Name="Category" Type="varchar" MaxLength="50" />
+    <Property Name="Accomodation_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Borough" Type="varchar" MaxLength="50" />
+    <Property Name="Output_Area" Type="varchar" MaxLength="50" />
+    <Property Name="Output_Area_CenX_EPSG27700" Type="varchar" MaxLength="50" />
+    <Property Name="Output_Area_CenY_EPSG27700" Type="varchar" MaxLength="50" />
+    <Property Name="Date_Went_Missing" Type="datetime" />
+    <Property Name="Date_Record_Created" Type="datetime" />
+    <Property Name="Date_Record_Updated" Type="datetime" />
+    <Property Name="Date_Last_Seen" Type="datetime" />
+    <Property Name="Date_Status_Changed_To_Unconfi" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Misper_Extended">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UniqueID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="image" Type="binary" MaxLength="50" Nullable="false" />
+    <Property Name="Is_Dangerous" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="TwitterName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FacebookName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="InstagramName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Latitude" Type="float" Nullable="false" />
+    <Property Name="Longitude" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Misper_Extended_Misper_Extended">
+    <End Role="misper " Type="Self.misper " Multiplicity="1" />
+    <End Role="Misper_Extended" Type="Self.Misper_Extended" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="misper ">
+        <PropertyRef Name="Unique_ID" />
+      </Principal>
+      <Dependent Role="Misper_Extended">
+        <PropertyRef Name="UniqueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GMPMissingPersonModelStoreContainer">
+    <EntitySet Name="misper " EntityType="Self.misper " Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Misper_Extended" EntityType="Self.Misper_Extended" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Misper_Extended_Misper_Extended" Association="Self.FK_Misper_Extended_Misper_Extended">
+      <End Role="misper " EntitySet="misper " />
+      <End Role="Misper_Extended" EntitySet="Misper_Extended" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

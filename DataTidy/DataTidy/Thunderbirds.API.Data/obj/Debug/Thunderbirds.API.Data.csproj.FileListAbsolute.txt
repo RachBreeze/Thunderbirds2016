@@ -1,0 +1,10 @@
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\bin\Debug\Thunderbirds.API.Data.dll.config
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\bin\Debug\Thunderbirds.API.Data.dll
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\bin\Debug\Thunderbirds.API.Data.pdb
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\bin\Debug\EntityFramework.dll
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\bin\Debug\EntityFramework.xml
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\obj\Debug\Thunderbirds.API.Data.csprojResolveAssemblyReference.cache
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\obj\Debug\Thunderbirds.API.Data.dll
+C:\GIT_ROOT\Thunderbirds\DataTidy\DataTidy\Thunderbirds.API.Data\obj\Debug\Thunderbirds.API.Data.pdb

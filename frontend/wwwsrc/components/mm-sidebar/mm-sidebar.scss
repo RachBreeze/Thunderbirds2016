@@ -1,0 +1,48 @@
+mm-sidebar {
+    .gmp-logo {
+        width:100%;
+        box-sizing:border-box;
+        position:absolute;
+        bottom:20%;
+        height:20%;
+        left:0px;
+        opacity:.8;
+        padding:0px;
+    margin-bottom: -2em;
+
+        &:before {
+            content:'';
+            display:block;
+            padding-top:34%;
+        }
+        background-image:url(./GMP-logo.jpg);
+        background-position:center;
+        background-repeat:no-repeat;
+        background-size:contain;
+    }
+
+    .lad-bible-logo {
+        position:absolute;
+        bottom:0px;
+        height:20%;
+        left:2em;
+        right:2em;
+        opacity:.8;
+        padding:0px;
+
+        &:before {
+            content:'';
+            display:block;
+            padding-top:34%;
+        }
+        background-image:url(./lad-bible-icon.png);
+        background-position:center;
+        background-repeat:no-repeat;
+        background-size:contain;
+        margin-bottom:1em;
+    }
+
+    md-content{ 
+        height:calc(100% - 64px);
+    }
+}

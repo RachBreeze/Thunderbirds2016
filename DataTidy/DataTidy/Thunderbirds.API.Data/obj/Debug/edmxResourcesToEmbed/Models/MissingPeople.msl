@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GMPMissingPersonModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="misper_">
+      <EntityTypeMapping TypeName="GMPMissingPersonModel.misper_">
+        <MappingFragment StoreEntitySet="misper ">
+          <ScalarProperty Name="Unique_ID" ColumnName="Unique_ID" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Forenames" ColumnName="Forenames" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Birth_Year" ColumnName="Birth_Year" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Status_Prior_To_Dormant" ColumnName="Status_Prior_To_Dormant" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Accomodation_Type" ColumnName="Accomodation_Type" />
+          <ScalarProperty Name="Borough" ColumnName="Borough" />
+          <ScalarProperty Name="Output_Area" ColumnName="Output_Area" />
+          <ScalarProperty Name="Output_Area_CenX_EPSG27700" ColumnName="Output_Area_CenX_EPSG27700" />
+          <ScalarProperty Name="Output_Area_CenY_EPSG27700" ColumnName="Output_Area_CenY_EPSG27700" />
+          <ScalarProperty Name="Date_Went_Missing" ColumnName="Date_Went_Missing" />
+          <ScalarProperty Name="Date_Record_Created" ColumnName="Date_Record_Created" />
+          <ScalarProperty Name="Date_Record_Updated" ColumnName="Date_Record_Updated" />
+          <ScalarProperty Name="Date_Last_Seen" ColumnName="Date_Last_Seen" />
+          <ScalarProperty Name="Date_Status_Changed_To_Unconfi" ColumnName="Date_Status_Changed_To_Unconfi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Misper_Extended">
+      <EntityTypeMapping TypeName="GMPMissingPersonModel.Misper_Extended">
+        <MappingFragment StoreEntitySet="Misper_Extended">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UniqueID" ColumnName="UniqueID" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="Is_Dangerous" ColumnName="Is_Dangerous" />
+          <ScalarProperty Name="TwitterName" ColumnName="TwitterName" />
+          <ScalarProperty Name="FacebookName" ColumnName="FacebookName" />
+          <ScalarProperty Name="InstagramName" ColumnName="InstagramName" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

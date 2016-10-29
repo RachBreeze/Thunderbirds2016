@@ -54,9 +54,12 @@ class SettingsViewController: UIViewController {
         
         if let users = jsonObject as? [[String: Any]] {
             for user in users {
+                let rawLatitude = user["Latitude"] as! Double
+                let rawLongtitude = user["Longitude"] as! Double
+                
                 let userID = user["UserID"] as! String
-                let latitude = user["Latitude"] as! Double
-                let longtitude = user["Longitude"] as! Double
+                let latitude = Double(round(1000000 * rawLatitude) / 1000000)
+                let longtitude = Double(round(1000000 * rawLongtitude) / 1000000)
                 let lastSeenDate = user["LastSeen"] as! String
                 let profileURL = user["ProfileURL"] as! String
                 let forename = user["Forename"] as! String
@@ -69,8 +72,41 @@ class SettingsViewController: UIViewController {
                 people.append(newPerson)
             }
         }
-//        for i in (1 ..< people.count) {
-//            print(people[i])
-//        }
+        
+        for i in 1 ..< people.count {
+            print("Q: \(people[i])")
+        }
+    }
+    
+    @IBAction func sendJSON(_ sender: AnyObject) {
+        sendJSON()
+    }
+    
+    func sendJSON() {
+        print("Q: HERE")
+        let parameters = "[{\"UserID\":\"383A353A3936393A3138\",\"Latitude\":53.43615,\"Longitude\":-2.277226,\"LastSeen\":\"2015-06-18T14:30:00\",\"ProfileURL\":\"tbd\",\"Forename\":\"PeachPuff1627237\",\"Surname\":\"DeepPinx\",\"Age\":55,\"IsDangerous\":false}]"
+        let myUrl = URL(string: "http://192.168.226.201:54621/api/Sightings/")
+        
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "POST"
+        request.httpBody = parameters.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil
+            {
+                print("error=\(error)")
+                return
+            }
+            print("response = \(response)")
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+//                if let parseJSON = json {
+//                    
+//                }
+            } catch {
+                print(error)
+            }
+        }
+        task.resume()
     }
 }

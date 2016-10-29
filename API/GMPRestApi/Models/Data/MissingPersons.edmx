@@ -16,6 +16,7 @@
           <Property Name="Longitude" Type="float" Nullable="false" />
           <Property Name="ContactNumber" Type="varchar" MaxLength="50" />
           <Property Name="Verified" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="SightingDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="LocationTypes">
           <Key>
@@ -29,6 +30,7 @@
           <Key>
             <PropertyRef Name="Unique_ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Unique_ID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Surname" Type="varchar" MaxLength="50" />
           <Property Name="Forenames" Type="varchar" MaxLength="50" />
@@ -62,6 +64,14 @@
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
         </EntityType>
+        <EntityType Name="PeopleTags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TagID" Type="int" Nullable="false" />
+          <Property Name="Unique_ID" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="PhoneData">
           <Key>
             <PropertyRef Name="ID" />
@@ -69,6 +79,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationID" Type="int" Nullable="false" />
           <Property Name="DeviceID" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TagName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Locations_LocationTypes">
           <End Role="misper " Type="Self.misper " Multiplicity="1" />
@@ -94,6 +111,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_people_tags_misper ">
+          <End Role="misper " Type="Self.misper " Multiplicity="1" />
+          <End Role="PeopleTags" Type="Self.PeopleTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="misper ">
+              <PropertyRef Name="Unique_ID" />
+            </Principal>
+            <Dependent Role="PeopleTags">
+              <PropertyRef Name="Unique_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_people_tags_people_tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="PeopleTags" Type="Self.PeopleTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PeopleTags">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PhoneData_Locations">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
           <End Role="PhoneData" Type="Self.PhoneData" Multiplicity="*" />
@@ -111,7 +152,9 @@
           <EntitySet Name="LocationTypes" EntityType="Self.LocationTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="misper " EntityType="Self.misper " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Misper_Extended" EntityType="Self.Misper_Extended" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PeopleTags" EntityType="Self.PeopleTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneData" EntityType="Self.PhoneData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Locations_LocationTypes" Association="Self.FK_Locations_LocationTypes">
             <End Role="misper " EntitySet="misper " />
             <End Role="Locations" EntitySet="Locations" />
@@ -119,6 +162,14 @@
           <AssociationSet Name="FK_Misper_Extended_Misper_Extended" Association="Self.FK_Misper_Extended_Misper_Extended">
             <End Role="misper " EntitySet="misper " />
             <End Role="Misper_Extended" EntitySet="Misper_Extended" />
+          </AssociationSet>
+          <AssociationSet Name="FK_people_tags_misper " Association="Self.FK_people_tags_misper ">
+            <End Role="misper " EntitySet="misper " />
+            <End Role="PeopleTags" EntitySet="PeopleTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_people_tags_people_tags" Association="Self.FK_people_tags_people_tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="PeopleTags" EntitySet="PeopleTags" />
           </AssociationSet>
           <AssociationSet Name="FK_PhoneData_Locations" Association="Self.FK_PhoneData_Locations">
             <End Role="Locations" EntitySet="Locations" />
@@ -153,6 +204,8 @@
           <Property Name="Date_Status_Changed_To_Unconfi" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Misper_Extended" Relationship="Self.FK_Misper_Extended_Misper_Extended" FromRole="misper_" ToRole="Misper_Extended" />
           <NavigationProperty Name="Locations" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes" FromRole="misper_" ToRole="Location" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="PeopleTags" Relationship="GMPMissingPersonModel.FK_people_tags_misper_" FromRole="misper_" ToRole="PeopleTag" />
         </EntityType>
         <EntityType Name="Misper_Extended">
           <Key>
@@ -199,6 +252,20 @@
             <End Role="Location" EntitySet="Locations" />
             <End Role="PhoneData" EntitySet="PhoneDatas" />
           </AssociationSet>
+          <EntitySet Name="PeopleTags" EntityType="GMPMissingPersonModel.PeopleTag" />
+          <EntitySet Name="Tags" EntityType="GMPMissingPersonModel.Tag" />
+          <AssociationSet Name="FK_people_tags_misper_" Association="GMPMissingPersonModel.FK_people_tags_misper_">
+            <End Role="misper_" EntitySet="misper_" />
+            <End Role="PeopleTag" EntitySet="PeopleTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_people_tags_people_tags" Association="GMPMissingPersonModel.FK_people_tags_people_tags">
+            <End Role="PeopleTag" EntitySet="PeopleTags" />
+            <End Role="PeopleTag1" EntitySet="PeopleTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_people_tags_people_tags1" Association="GMPMissingPersonModel.FK_people_tags_people_tags1">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="PeopleTag" EntitySet="PeopleTags" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Location">
           <Key>
@@ -213,6 +280,7 @@
           <Property Name="Verified" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="misper_" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes" FromRole="Location" ToRole="misper_" />
           <NavigationProperty Name="PhoneDatas" Relationship="GMPMissingPersonModel.FK_PhoneData_Locations" FromRole="Location" ToRole="PhoneData" />
+          <Property Name="SightingDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -255,6 +323,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PeopleTag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagID" Type="Int32" Nullable="false" />
+          <Property Name="Unique_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="misper_" Relationship="GMPMissingPersonModel.FK_people_tags_misper_" FromRole="PeopleTag" ToRole="misper_" />
+          <NavigationProperty Name="PeopleTags1" Relationship="GMPMissingPersonModel.FK_people_tags_people_tags" FromRole="PeopleTag" ToRole="PeopleTag1" />
+          <NavigationProperty Name="PeopleTag1" Relationship="GMPMissingPersonModel.FK_people_tags_people_tags" FromRole="PeopleTag1" ToRole="PeopleTag" />
+          <NavigationProperty Name="Tag" Relationship="GMPMissingPersonModel.FK_people_tags_people_tags1" FromRole="PeopleTag" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PeopleTags" Relationship="GMPMissingPersonModel.FK_people_tags_people_tags1" FromRole="Tag" ToRole="PeopleTag" />
+        </EntityType>
+        <Association Name="FK_people_tags_misper_">
+          <End Type="GMPMissingPersonModel.misper_" Role="misper_" Multiplicity="1" />
+          <End Type="GMPMissingPersonModel.PeopleTag" Role="PeopleTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="misper_">
+              <PropertyRef Name="Unique_ID" />
+            </Principal>
+            <Dependent Role="PeopleTag">
+              <PropertyRef Name="Unique_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_people_tags_people_tags">
+          <End Type="GMPMissingPersonModel.PeopleTag" Role="PeopleTag" Multiplicity="1" />
+          <End Type="GMPMissingPersonModel.PeopleTag" Role="PeopleTag1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PeopleTag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PeopleTag1">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_people_tags_people_tags1">
+          <End Type="GMPMissingPersonModel.Tag" Role="Tag" Multiplicity="1" />
+          <End Type="GMPMissingPersonModel.PeopleTag" Role="PeopleTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PeopleTag">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -264,6 +388,7 @@
           <EntitySetMapping Name="misper_">
             <EntityTypeMapping TypeName="GMPMissingPersonModel.misper_">
               <MappingFragment StoreEntitySet="misper ">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Unique_ID" ColumnName="Unique_ID" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Forenames" ColumnName="Forenames" />
@@ -303,6 +428,7 @@
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="GMPMissingPersonModel.Location">
               <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="SightingDate" ColumnName="SightingDate" />
                 <ScalarProperty Name="Verified" ColumnName="Verified" />
                 <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
@@ -328,6 +454,23 @@
                 <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PeopleTags">
+            <EntityTypeMapping TypeName="GMPMissingPersonModel.PeopleTag">
+              <MappingFragment StoreEntitySet="PeopleTags">
+                <ScalarProperty Name="Unique_ID" ColumnName="Unique_ID" />
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="GMPMissingPersonModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="TagName" ColumnName="TagName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

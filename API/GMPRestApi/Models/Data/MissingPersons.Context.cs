@@ -30,5 +30,7 @@ namespace GMPRestApi.Models.Data
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<LocationType> LocationTypes { get; set; }
         public virtual DbSet<PhoneData> PhoneDatas { get; set; }
+        public virtual DbSet<PeopleTag> PeopleTags { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
     }
 }

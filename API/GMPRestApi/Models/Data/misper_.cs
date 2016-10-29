@@ -19,6 +19,7 @@ namespace GMPRestApi.Models.Data
         {
             this.Misper_Extended = new HashSet<Misper_Extended>();
             this.Locations = new HashSet<Location>();
+            this.PeopleTags = new HashSet<PeopleTag>();
         }
     
         public string Unique_ID { get; set; }
@@ -39,10 +40,13 @@ namespace GMPRestApi.Models.Data
         public Nullable<System.DateTime> Date_Record_Updated { get; set; }
         public Nullable<System.DateTime> Date_Last_Seen { get; set; }
         public Nullable<System.DateTime> Date_Status_Changed_To_Unconfi { get; set; }
+        public int ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Misper_Extended> Misper_Extended { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Location> Locations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PeopleTag> PeopleTags { get; set; }
     }
 }

@@ -12,25 +12,22 @@ namespace GMPRestApi.Models.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Location
+    public partial class PeopleTag
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Location()
+        public PeopleTag()
         {
-            this.PhoneDatas = new HashSet<PhoneData>();
+            this.PeopleTags1 = new HashSet<PeopleTag>();
         }
     
-        public int ID { get; set; }
-        public int LocationTypeID { get; set; }
+        public int Id { get; set; }
+        public int TagID { get; set; }
         public string Unique_ID { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string ContactNumber { get; set; }
-        public string Verified { get; set; }
-        public System.DateTime SightingDate { get; set; }
     
         public virtual misper_ misper_ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhoneData> PhoneDatas { get; set; }
+        public virtual ICollection<PeopleTag> PeopleTags1 { get; set; }
+        public virtual PeopleTag PeopleTag1 { get; set; }
+        public virtual Tag Tag { get; set; }
     }
 }

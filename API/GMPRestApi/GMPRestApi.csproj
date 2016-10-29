@@ -209,6 +209,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationTypesController.cs" />
+    <Compile Include="Controllers\ProfileInfoController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\SightingsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -244,11 +245,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MissingPersons.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\PeopleTag.cs">
+      <DependentUpon>MissingPersons.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Data\PhoneData.cs">
+      <DependentUpon>MissingPersons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data\Tag.cs">
       <DependentUpon>MissingPersons.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\ProfileInfo.cs" />
     <Compile Include="Models\Sighting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

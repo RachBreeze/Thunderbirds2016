@@ -9,5 +9,6 @@ namespace GMPRestApi.Controllers
 {
     public class LocationTypesController : ApiController
     {
+
     }
 }

@@ -8,22 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		8D06FD311DC4F0D300BCD697 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D06FD301DC4F0D300BCD697 /* AppDelegate.swift */; };
-		8D06FD331DC4F0D300BCD697 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D06FD321DC4F0D300BCD697 /* ViewController.swift */; };
+		8D06FD331DC4F0D300BCD697 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D06FD321DC4F0D300BCD697 /* ReportViewController.swift */; };
 		8D06FD361DC4F0D300BCD697 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D06FD341DC4F0D300BCD697 /* Main.storyboard */; };
-		8D06FD381DC4F0D300BCD697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D06FD371DC4F0D300BCD697 /* Assets.xcassets */; };
 		8D06FD3B1DC4F0D300BCD697 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D06FD391DC4F0D300BCD697 /* LaunchScreen.storyboard */; };
 		8D06FD431DC5040F00BCD697 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D06FD421DC5040F00BCD697 /* LoginViewController.swift */; };
+		8D06FD451DC51A4900BCD697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D06FD441DC51A4900BCD697 /* Assets.xcassets */; };
+		8D06FD471DC51EEE00BCD697 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D06FD461DC51EEE00BCD697 /* MapViewController.swift */; };
+		8D06FD491DC529C700BCD697 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D06FD481DC529C700BCD697 /* SettingsViewController.swift */; };
+		8D06FD4B1DC529D900BCD697 /* DatabaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D06FD4A1DC529D900BCD697 /* DatabaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8D06FD2D1DC4F0D300BCD697 /* Miss Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Miss Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D06FD301DC4F0D300BCD697 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8D06FD321DC4F0D300BCD697 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
+		8D06FD321DC4F0D300BCD697 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		8D06FD351DC4F0D300BCD697 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8D06FD371DC4F0D300BCD697 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D06FD3A1DC4F0D300BCD697 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D06FD3C1DC4F0D300BCD697 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D06FD421DC5040F00BCD697 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8D06FD441DC51A4900BCD697 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D06FD461DC51EEE00BCD697 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		8D06FD481DC529C700BCD697 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		8D06FD4A1DC529D900BCD697 /* DatabaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,11 +63,14 @@
 			isa = PBXGroup;
 			children = (
 				8D06FD301DC4F0D300BCD697 /* AppDelegate.swift */,
-				8D06FD321DC4F0D300BCD697 /* ViewController.swift */,
 				8D06FD421DC5040F00BCD697 /* LoginViewController.swift */,
+				8D06FD461DC51EEE00BCD697 /* MapViewController.swift */,
+				8D06FD321DC4F0D300BCD697 /* ReportViewController.swift */,
+				8D06FD4A1DC529D900BCD697 /* DatabaseViewController.swift */,
+				8D06FD481DC529C700BCD697 /* SettingsViewController.swift */,
 				8D06FD341DC4F0D300BCD697 /* Main.storyboard */,
-				8D06FD371DC4F0D300BCD697 /* Assets.xcassets */,
 				8D06FD391DC4F0D300BCD697 /* LaunchScreen.storyboard */,
+				8D06FD441DC51A4900BCD697 /* Assets.xcassets */,
 				8D06FD3C1DC4F0D300BCD697 /* Info.plist */,
 			);
 			path = "Miss Me";
@@ -128,7 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D06FD3B1DC4F0D300BCD697 /* LaunchScreen.storyboard in Resources */,
-				8D06FD381DC4F0D300BCD697 /* Assets.xcassets in Resources */,
+				8D06FD451DC51A4900BCD697 /* Assets.xcassets in Resources */,
 				8D06FD361DC4F0D300BCD697 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,8 +150,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D06FD431DC5040F00BCD697 /* LoginViewController.swift in Sources */,
-				8D06FD331DC4F0D300BCD697 /* ViewController.swift in Sources */,
+				8D06FD331DC4F0D300BCD697 /* ReportViewController.swift in Sources */,
 				8D06FD311DC4F0D300BCD697 /* AppDelegate.swift in Sources */,
+				8D06FD4B1DC529D900BCD697 /* DatabaseViewController.swift in Sources */,
+				8D06FD491DC529C700BCD697 /* SettingsViewController.swift in Sources */,
+				8D06FD471DC51EEE00BCD697 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +277,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HKNDM66956;
 				INFOPLIST_FILE = "Miss Me/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tang27.Miss-Me";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -278,6 +291,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HKNDM66956;
 				INFOPLIST_FILE = "Miss Me/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tang27.Miss-Me";
 				PRODUCT_NAME = "$(TARGET_NAME)";

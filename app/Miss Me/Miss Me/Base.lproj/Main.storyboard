@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oln-Bd-Tt2">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -9,7 +9,7 @@
         <!--Report-->
         <scene sceneID="AtF-yb-AX5">
             <objects>
-                <viewController id="bGY-Yf-TTQ" sceneMemberID="viewController">
+                <viewController id="bGY-Yf-TTQ" customClass="ReportViewController" customModule="Miss_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kgP-ra-8Z3"/>
                         <viewControllerLayoutGuide type="bottom" id="3j5-JN-V06"/>
@@ -17,6 +17,16 @@
                     <view key="view" contentMode="scaleToFill" id="6dn-GY-N2W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZ6-bQ-m4X">
+                                <frame key="frameInset" minX="164" minY="318" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="pressedButton:" destination="bGY-Yf-TTQ" eventType="touchUpInside" id="fpC-Ya-RIv"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Report" id="FB2-lv-696"/>
@@ -28,7 +38,7 @@
         <!--Database-->
         <scene sceneID="Ufg-YA-oPY">
             <objects>
-                <viewController id="xTd-Pd-hZY" sceneMemberID="viewController">
+                <viewController id="xTd-Pd-hZY" customClass="DatabaseViewController" customModule="Miss_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jNL-L6-LRR"/>
                         <viewControllerLayoutGuide type="bottom" id="anS-VU-08h"/>
@@ -48,7 +58,7 @@
         <scene sceneID="rAw-kv-8sL">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6CW-Pe-7Hf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="iIB-pI-VYY" sceneMemberID="viewController">
+                <viewController id="iIB-pI-VYY" customClass="MapViewController" customModule="Miss_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sz1-40-wsP"/>
                         <viewControllerLayoutGuide type="bottom" id="aXQ-qs-nc6"/>
@@ -61,7 +71,7 @@
                     <navigationItem key="navigationItem" title="Map" id="i8F-Vo-4l9"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="289" y="-922"/>
+            <point key="canvasLocation" x="288.80000000000001" y="-922.48875562218893"/>
         </scene>
         <!--Main Tab Bar-->
         <scene sceneID="yQz-IE-qQe">
@@ -127,7 +137,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bf5-XU-4uJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XI6-oF-fzO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="cBs-ix-2rJ"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map_icon" id="cBs-ix-2rJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wvo-6y-eny">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -145,7 +155,7 @@
         <scene sceneID="wl1-CY-BEH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9Ga-KK-OWj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Report" id="04H-Qc-ADe"/>
+                    <tabBarItem key="tabBarItem" title="Report" image="report_icon" id="04H-Qc-ADe"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RO9-Be-Onb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -164,7 +174,7 @@
         <scene sceneID="jyd-JY-A92">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7vh-hE-iRS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Database" id="Afv-j6-jd3"/>
+                    <tabBarItem key="tabBarItem" title="Database" image="personpin_icon" id="Afv-j6-jd3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZuB-CZ-NtL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -182,7 +192,7 @@
         <!--Settings-->
         <scene sceneID="dkc-gq-vI7">
             <objects>
-                <viewController id="d0D-J0-GGb" sceneMemberID="viewController">
+                <viewController id="d0D-J0-GGb" customClass="SettingsViewController" customModule="Miss_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WY4-C9-8C7"/>
                         <viewControllerLayoutGuide type="bottom" id="yyr-n5-Apv"/>
@@ -202,7 +212,7 @@
         <scene sceneID="xIl-Jb-mwa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fP7-2Q-KlW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="UBi-F6-Bbl"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings_icon" id="UBi-F6-Bbl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xyk-tg-HCY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -218,4 +228,10 @@
             <point key="canvasLocation" x="-650" y="1096"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map_icon" width="30" height="30"/>
+        <image name="personpin_icon" width="30" height="30"/>
+        <image name="report_icon" width="30" height="30"/>
+        <image name="settings_icon" width="30" height="30"/>
+    </resources>
 </document>

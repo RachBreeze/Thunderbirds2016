@@ -1,7 +1,7 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ReportViewController: UIViewController, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
     
@@ -23,6 +23,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         if authStatus == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
+            if authStatus == .authorizedWhenInUse {
+                startLocationManager()
+            }
         } else if authStatus == .denied || authStatus == .restricted {
             showInsufficientPermissions()
         } else {
@@ -32,10 +35,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 stopLocationManager()
             }
         }
-    }
-    
-    @IBAction func goInside(_ sender: AnyObject) {
-        performSegue(withIdentifier: "showMenu", sender: self)
     }
     
     func startLocationManager() {
@@ -59,7 +58,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func showInsufficientPermissions() {
         let alert = UIAlertController(title: "Location Services Disabled",
-                                      message: "Please enable location services for MissMe in Settings to use this feature`.",
+                                      message: "Please enable location services for MissMe in Settings to use this feature.",
                                       preferredStyle: .alert)
         
         let okayAction = UIAlertAction(title: "Okay", style: .default, handler: nil)

@@ -21,7 +21,7 @@ namespace GMPRestApi.Controllers
         }
         public List<Profile> Get()
         {
-            return GetProfiles(1,100);
+            return GetProfiles(1,500);
         }
         private List<Profile>GetProfiles(int startIndex, int endIndex)
         {

@@ -18,7 +18,11 @@ export default function (API_URL, $resource) {
     }, function () {
         return `${this.Latitude}${this.Longtitude}`;
     });
-
+    
+    Profile.prototype.getTags = () => {
+        return ['alzimers'];
+    };
+    
     Profile.prototype.getFullName = function () {
         return `${this.Forename} ${this.Surname}`;
     };

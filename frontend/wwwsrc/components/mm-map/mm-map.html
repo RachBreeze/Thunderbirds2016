@@ -1,12 +1,8 @@
-<ui-gmap-google-map center='Map.map.center' zoom='Map.map.zoom' options="Map.map.options">
+<ui-gmap-google-map class="fullscreen-map" center='Map.map.center' zoom='Map.map.zoom' options="Map.map.options">
     <ui-gmap-marker
         ng-repeat="profile in Map.mmApp.profiles"
             idkey='profile.UserID'
             coords='profile.getLatLng()'
-            options='profile.getMarkerOptions()'
-            click="Map.toggleWindow(profile.UserID)">
-            <ui-gmap-window options="Map.getWindowOptions(profile.UserID)" closeClick="Map.toggleWindow(profile.UserID)">
-                <div ng-bind="profile.getFullName()"></div>
-            </ui-gmap-window>
+            click="Map.openProfile(profile, $event)">
     </ui-gmap-marker>
 </ui-gmap-google-map>

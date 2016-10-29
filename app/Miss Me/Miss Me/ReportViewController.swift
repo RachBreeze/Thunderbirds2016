@@ -1,7 +1,8 @@
 import UIKit
+import MapKit
 import CoreLocation
 
-class ReportViewController: UIViewController, CLLocationManagerDelegate {
+class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
     
@@ -16,9 +17,31 @@ class ReportViewController: UIViewController, CLLocationManagerDelegate {
     var placemark: CLPlacemark?
     var isReverseGeocoding = false
     
-    var deviceUDID: String = ""
+    var width: CGFloat = 0.0
+    var height: CGFloat = 0.0
     
-    @IBAction func pressedButton(_ sender: AnyObject) {
+    var myLocationAnnotation = MKPointAnnotation()
+    var isMyLocationPinned = false
+    
+    var mapView = MKMapView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        width = view.frame.width
+        height = view.frame.height
+        
+        requestLocation()
+        mapInit()
+        
+        deviceUDID = (UIDevice.current.identifierForVendor?.uuidString)!
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func requestLocation() {
         let authStatus = CLLocationManager.authorizationStatus()
         
         if authStatus == .notDetermined {
@@ -37,12 +60,23 @@ class ReportViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    func showInsufficientPermissions() {
+        let alert = UIAlertController(title: "Location Services Disabled",
+                                      message: "Please enable location services for MissMe in Settings to use this feature.",
+                                      preferredStyle: .alert)
+        
+        let okayAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(okayAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     func startLocationManager() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
-        
+            
             isUpdatingLocation = true
         }
     }
@@ -54,17 +88,6 @@ class ReportViewController: UIViewController, CLLocationManagerDelegate {
             
             isUpdatingLocation = false
         }
-    }
-    
-    func showInsufficientPermissions() {
-        let alert = UIAlertController(title: "Location Services Disabled",
-                                      message: "Please enable location services for MissMe in Settings to use this feature.",
-                                      preferredStyle: .alert)
-        
-        let okayAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
-        alert.addAction(okayAction)
-        
-        present(alert, animated: true, completion: nil)
     }
     
     func obtainAddress(placemark: CLPlacemark) -> String {
@@ -120,11 +143,6 @@ class ReportViewController: UIViewController, CLLocationManagerDelegate {
             
             if let placemark = placemark {
                 locationString = obtainAddress(placemark: placemark)
-                
-                print("Q: Lat: \(latitude), Long: \(longitude)")
-                print("Q: \(deviceUDID)")
-                print("Q: \(locationString)")
-                
                 stopLocationManager()
             } else {
                 locationString = "Could not obtain address."
@@ -132,12 +150,27 @@ class ReportViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        deviceUDID = (UIDevice.current.identifierForVendor?.uuidString)!
+    func mapInit() {
+        mapView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        mapView.delegate = self
+        mapView.mapType = .standard
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        
+        view.addSubview(mapView)
+        
+        if let location = location {
+            focusMapAt(point: location)
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    func focusMapAt(point: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude), 1000, 1000)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+        let pinLocation = CLLocationCoordinate2DMake(point.coordinate.latitude, point.coordinate.longitude)
+        let pinAnnotation = MKPointAnnotation()
+        pinAnnotation.coordinate = pinLocation
+        self.mapView.addAnnotation(pinAnnotation)
     }
 }

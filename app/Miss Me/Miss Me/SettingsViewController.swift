@@ -83,7 +83,6 @@ class SettingsViewController: UIViewController {
     }
     
     func sendJSON() {
-        print("Q: HERE")
         let parameters = "{\"UserID\":\"383A353A3A363A3A3239\",\"Latitude\":53.43615,\"Longitude\":-2.277226,\"LastSeen\":\"2015-06-18T14:30:00\",\"ProfileURL\":\"tbd\",\"Forename\":\"PeachPuff1627237\",\"Surname\":\"DeepPinx\",\"Age\":55,\"IsDangerous\":false}"
         let myUrl = URL(string: "http://192.168.226.201:54621/api/Sightings/")
         

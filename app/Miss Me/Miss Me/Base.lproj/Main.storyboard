@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oln-Bd-Tt2">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,9 +21,6 @@
                                 <frame key="frameInset" minX="164" minY="318" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="pressedButton:" destination="bGY-Yf-TTQ" eventType="touchUpInside" id="fpC-Ya-RIv"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,19 +53,25 @@
         <!--Map-->
         <scene sceneID="rAw-kv-8sL">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6CW-Pe-7Hf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="iIB-pI-VYY" customClass="MapViewController" customModule="Miss_Me" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="sz1-40-wsP"/>
-                        <viewControllerLayoutGuide type="bottom" id="aXQ-qs-nc6"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PrC-n1-1II">
+                    <navigationBar key="view" contentMode="scaleToFill" id="5xG-gv-y80">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Map" id="i8F-Vo-4l9"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <items>
+                            <navigationItem title="Title" id="1dk-EM-HiI"/>
+                        </items>
+                    </navigationBar>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Map" id="eBY-t7-kW6">
+                        <barButtonItem key="rightBarButtonItem" image="mylocation_icon" id="rZ6-b7-koa">
+                            <connections>
+                                <action selector="pressedButton:" destination="iIB-pI-VYY" id="Yib-gm-9qw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6CW-Pe-7Hf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="288.80000000000001" y="-922.48875562218893"/>
         </scene>
@@ -135,7 +137,6 @@
         <!--Map-->
         <scene sceneID="Atn-Mq-rej">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bf5-XU-4uJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XI6-oF-fzO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map_icon" id="cBs-ix-2rJ"/>
                     <toolbarItems/>
@@ -148,6 +149,7 @@
                         <segue destination="iIB-pI-VYY" kind="relationship" relationship="rootViewController" id="s9g-YY-Ptl"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bf5-XU-4uJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-650.39999999999998" y="-922.48875562218893"/>
         </scene>
@@ -240,6 +242,7 @@
     </scenes>
     <resources>
         <image name="map_icon" width="30" height="30"/>
+        <image name="mylocation_icon" width="30" height="30"/>
         <image name="personpin_icon" width="30" height="30"/>
         <image name="report_icon" width="30" height="30"/>
         <image name="settings_icon" width="30" height="30"/>

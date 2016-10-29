@@ -6,10 +6,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     
     var location: CLLocation?
-    var updatingLocation = false
+    var locationString = ""
+    var isUpdatingLocation = false
     
     var longitude: String = ""
     var latitude: String = ""
+    
+    var geocoder = CLGeocoder()
+    var placemark: CLPlacemark?
+    var isReverseGeocoding = false
     
     var deviceUDID: String = ""
     
@@ -21,7 +26,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         } else if authStatus == .denied || authStatus == .restricted {
             showInsufficientPermissions()
         } else {
-            if !updatingLocation {
+            if !isUpdatingLocation {
                 startLocationManager()
             } else {
                 stopLocationManager()
@@ -39,16 +44,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         
-            updatingLocation = true
+            isUpdatingLocation = true
         }
     }
     
     func stopLocationManager() {
-        if updatingLocation {
+        if isUpdatingLocation {
             locationManager.stopUpdatingLocation()
             locationManager.delegate = nil
             
-            updatingLocation = false
+            isUpdatingLocation = false
         }
     }
     
@@ -61,6 +66,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         alert.addAction(okayAction)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func obtainAddress(placemark: CLPlacemark) -> String {
+        var address = ""
+        
+        if let houseNum = placemark.subThoroughfare {
+            address += houseNum + " "
+        }
+        
+        if let streetName = placemark.thoroughfare {
+            address += streetName + ", "
+        }
+        
+        if let city = placemark.locality {
+            address += city + ", "
+        }
+        
+        if let state = placemark.administrativeArea {
+            address += state + ", "
+        }
+        
+        if let postcode = placemark.postalCode {
+            address += postcode + "."
+        }
+        
+        return address
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -76,11 +107,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if let location = location {
             longitude = String(format: "%.8f", location.coordinate.longitude)
             latitude = String(format: "%.8f", location.coordinate.latitude)
-            print("Q: Lat: \(latitude), Long: \(longitude)")
-            print("Q: \(deviceUDID)")
-            stopLocationManager()
-        }
 
+            if !isReverseGeocoding {
+                isReverseGeocoding = true
+                geocoder.reverseGeocodeLocation(location, completionHandler: {
+                    placemarks, error in
+                    if error == nil, let p = placemarks, !p.isEmpty {
+                        self.placemark = p.last!
+                    }
+                    self.isReverseGeocoding = false
+                })
+            }
+            
+            if let placemark = placemark {
+                locationString = obtainAddress(placemark: placemark)
+                
+                print("Q: Lat: \(latitude), Long: \(longitude)")
+                print("Q: \(deviceUDID)")
+                print("Q: \(locationString)")
+                
+                stopLocationManager()
+            } else {
+                locationString = "Could not obtain address."
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -90,6 +140,5 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
 }

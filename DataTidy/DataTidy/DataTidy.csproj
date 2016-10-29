@@ -66,6 +66,12 @@
     <Compile Include="DataTidyForm.Designer.cs">
       <DependentUpon>DataTidyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Location.cs">
+      <DependentUpon>MissingPeople.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocationType.cs">
+      <DependentUpon>MissingPeople.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\misper_.cs">
       <DependentUpon>MissingPeople.tt</DependentUpon>
     </Compile>
@@ -86,6 +92,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MissingPeople.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhoneData.cs">
+      <DependentUpon>MissingPeople.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

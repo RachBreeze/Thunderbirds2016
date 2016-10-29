@@ -18,6 +18,7 @@ namespace GMPRestApi.Models.Data
         public misper_()
         {
             this.Misper_Extended = new HashSet<Misper_Extended>();
+            this.Locations = new HashSet<Location>();
         }
     
         public string Unique_ID { get; set; }
@@ -41,5 +42,7 @@ namespace GMPRestApi.Models.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Misper_Extended> Misper_Extended { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Locations { get; set; }
     }
 }

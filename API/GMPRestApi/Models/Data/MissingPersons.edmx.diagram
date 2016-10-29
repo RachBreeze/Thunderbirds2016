@@ -8,6 +8,11 @@
         <EntityTypeShape EntityType="GMPMissingPersonModel.misper_" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="GMPMissingPersonModel.Misper_Extended" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
         <AssociationConnector Association="GMPMissingPersonModel.FK_Misper_Extended_Misper_Extended" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GMPMissingPersonModel.Location" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="GMPMissingPersonModel.LocationType" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GMPMissingPersonModel.PhoneData" Width="1.5" PointX="5.25" PointY="6.5" />
+        <AssociationConnector Association="GMPMissingPersonModel.FK_Locations_LocationTypes" />
+        <AssociationConnector Association="GMPMissingPersonModel.FK_PhoneData_Locations" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

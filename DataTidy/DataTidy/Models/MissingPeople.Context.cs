@@ -27,5 +27,8 @@ namespace DataTidy.Models
     
         public virtual DbSet<misper_> misper_ { get; set; }
         public virtual DbSet<Misper_Extended> Misper_Extended { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<LocationType> LocationTypes { get; set; }
+        public virtual DbSet<PhoneData> PhoneDatas { get; set; }
     }
 }

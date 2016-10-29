@@ -22,10 +22,17 @@ namespace DataTidy
         private void LatLong_Click(object sender, EventArgs e)
         {
             int i = 0;
+            int saveCount = 0;
+            int total = 0;
+            int personCount = 0;
             //https://code.google.com/archive/p/geocoordconversion/downloads
             DataTidy.Models.GMPMissingPersonEntities entities=new DataTidy.Models.GMPMissingPersonEntities();
+            total = entities.misper_.Count();
             foreach (var person in entities.misper_)
             {
+                personCount += 1;
+                lblCount.Text = "Processing " + personCount + " of " + total;
+                lblCount.Refresh();
                 string xcoord = person.Output_Area_CenX_EPSG27700;
                 int index;
                 index= xcoord.IndexOf(".");
@@ -59,18 +66,19 @@ namespace DataTidy
                 extendedInfo.FacebookName = "";
                 extendedInfo.InstagramName = "";
                 extendedInfo.Is_Dangerous = "N";
-                extendedInfo.TwitterName = "";
+                if (i == 3)
+                {
+                    i = 0;
+                    extendedInfo.Is_Dangerous = "Y";
+                }
+                    extendedInfo.TwitterName = "";
                 extendedInfo.image = null;
                 entities.Misper_Extended.AddOrUpdate();
                 i++;
-                if (i > 10)
-                {
-                    break;
-                }
             }
             entities.SaveChanges();
+            MessageBox.Show("Completed");
         }
-
 
     }
 }

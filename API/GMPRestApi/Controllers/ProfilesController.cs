@@ -24,7 +24,7 @@ namespace GMPRestApi.Controllers
                 Misper_Extended extended = person.Misper_Extended.FirstOrDefault();
                 profile.LastSeen = person.Date_Went_Missing.Value;
                 profile.Latitude = extended.Latitude.Value;
-                profile.Longtitude = extended.Longitude.Value;
+                profile.Longitude = extended.Longitude.Value;
                 profile.ProfileURL = "tbd";
                 profile.UserID = person.Unique_ID;
                 if (!string.IsNullOrEmpty(person.Birth_Year))

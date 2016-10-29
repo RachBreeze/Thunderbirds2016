@@ -10,7 +10,7 @@ namespace GMPRestApi.Models
     {
         public string UserID { get; set; }
         public double Latitude { get; set; }
-        public double Longtitude { get; set; }
+        public double Longitude { get; set; }
         public DateTime LastSeen { get; set; }
         public string ProfileURL { get; set; }
         public string Forename { get; set; }

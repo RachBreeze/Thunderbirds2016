@@ -11,6 +11,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var longitude: String = ""
     var latitude: String = ""
     
+    var deviceUDID: String = ""
+    
     @IBAction func pressedButton(_ sender: AnyObject) {
         let authStatus = CLLocationManager.authorizationStatus()
         
@@ -25,6 +27,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 stopLocationManager()
             }
         }
+    }
+    
+    @IBAction func goInside(_ sender: AnyObject) {
+        performSegue(withIdentifier: "showMenu", sender: self)
     }
     
     func startLocationManager() {
@@ -46,10 +52,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func getLocation() {
-        
-    }
-    
     func showInsufficientPermissions() {
         let alert = UIAlertController(title: "Location Services Disabled",
                                       message: "Please enable location services for MissMe in Settings to use this feature`.",
@@ -65,6 +67,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         print("didFailWithError \(error)")
         stopLocationManager()
     }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
         print("didUpdateLocations \(newLocation)")
@@ -73,7 +76,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if let location = location {
             longitude = String(format: "%.8f", location.coordinate.longitude)
             latitude = String(format: "%.8f", location.coordinate.latitude)
-            print("Lat: \(latitude), Long: \(longitude)")
+            print("Q: Lat: \(latitude), Long: \(longitude)")
+            print("Q: \(deviceUDID)")
             stopLocationManager()
         }
 
@@ -81,14 +85,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        deviceUDID = (UIDevice.current.identifierForVendor?.uuidString)!
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
-
-
 }
-

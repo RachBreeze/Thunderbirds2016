@@ -13,6 +13,7 @@ namespace GMPRestApi.Controllers
     [System.Web.Mvc.RoutePrefix("api/Sightings")]
     public class SightingsController : ApiController
     {
+        [HttpPost]
         public void Post([FromBody]Sighting sighting)
         {
             GMPRestApi.Models.Data.GMPMissingPersonEntities entities = new GMPRestApi.Models.Data.GMPMissingPersonEntities();

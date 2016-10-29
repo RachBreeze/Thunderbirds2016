@@ -16,6 +16,7 @@
           <Property Name="Longitude" Type="float" Nullable="false" />
           <Property Name="ContactNumber" Type="varchar" MaxLength="50" />
           <Property Name="Verified" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="SightingDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="LocationTypes">
           <Key>
@@ -29,6 +30,7 @@
           <Key>
             <PropertyRef Name="Unique_ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Unique_ID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Surname" Type="varchar" MaxLength="50" />
           <Property Name="Forenames" Type="varchar" MaxLength="50" />
@@ -153,6 +155,7 @@
           <Property Name="Date_Status_Changed_To_Unconfi" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Misper_Extended" Relationship="Self.FK_Misper_Extended_Misper_Extended" FromRole="misper_" ToRole="Misper_Extended" />
           <NavigationProperty Name="Locations" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes1" FromRole="misper_" ToRole="Location" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Misper_Extended">
           <Key>
@@ -218,6 +221,7 @@
           <NavigationProperty Name="LocationType" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes" FromRole="Location" ToRole="LocationType" />
           <NavigationProperty Name="PhoneDatas" Relationship="GMPMissingPersonModel.FK_PhoneData_Locations" FromRole="Location" ToRole="PhoneData" />
           <NavigationProperty Name="misper_" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes1" FromRole="Location" ToRole="misper_" />
+          <Property Name="SightingDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -282,6 +286,7 @@
           <EntitySetMapping Name="misper_">
             <EntityTypeMapping TypeName="GMPMissingPersonModel.misper_">
               <MappingFragment StoreEntitySet="misper ">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Unique_ID" ColumnName="Unique_ID" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Forenames" ColumnName="Forenames" />
@@ -321,6 +326,7 @@
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="GMPMissingPersonModel.Location">
               <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="SightingDate" ColumnName="SightingDate" />
                 <ScalarProperty Name="Verified" ColumnName="Verified" />
                 <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
                 <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />

@@ -27,6 +27,7 @@ namespace DataTidy.Models
         public string ContactNumber { get; set; }
         public int LocationTypeID { get; set; }
         public string Verified { get; set; }
+        public System.DateTime SightingDate { get; set; }
     
         public virtual LocationType LocationType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

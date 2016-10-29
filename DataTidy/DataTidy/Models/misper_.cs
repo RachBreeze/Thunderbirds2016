@@ -39,6 +39,7 @@ namespace DataTidy.Models
         public Nullable<System.DateTime> Date_Record_Updated { get; set; }
         public Nullable<System.DateTime> Date_Last_Seen { get; set; }
         public Nullable<System.DateTime> Date_Status_Changed_To_Unconfi { get; set; }
+        public int ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Misper_Extended> Misper_Extended { get; set; }

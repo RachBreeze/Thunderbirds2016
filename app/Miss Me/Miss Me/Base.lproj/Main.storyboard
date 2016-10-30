@@ -304,11 +304,11 @@
             </objects>
             <point key="canvasLocation" x="289" y="404"/>
         </scene>
-        <!--Settings-->
+        <!--Instagram-->
         <scene sceneID="lud-AL-lwO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3lL-pw-XX0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="instagram_icon 2" id="U18-Uw-IJS"/>
+                    <tabBarItem key="tabBarItem" title="Instagram" image="instagram_icon3" id="U18-Uw-IJS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HbR-2o-TNM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -346,7 +346,7 @@
     <resources>
         <image name="div" width="160" height="160"/>
         <image name="dp" width="160" height="160"/>
-        <image name="instagram_icon 2" width="30" height="30"/>
+        <image name="instagram_icon3" width="30" height="30"/>
         <image name="map_icon" width="30" height="30"/>
         <image name="mylocation_icon" width="30" height="30"/>
         <image name="personpin_icon" width="30" height="30"/>

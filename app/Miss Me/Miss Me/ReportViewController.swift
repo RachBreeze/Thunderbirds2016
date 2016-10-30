@@ -19,26 +19,35 @@ class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     var width: CGFloat = 0.0
     var height: CGFloat = 0.0
+    var headerheight: CGFloat = 0.0
     
     var myLocationAnnotation = MKPointAnnotation()
     var isMyLocationPinned = false
     
     var mapView = MKMapView()
     
+    let locationLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         width = view.frame.width
         height = view.frame.height
+        headerheight = UIApplication.shared.statusBarFrame.height + self.navigationController!.navigationBar.frame.height
         
         requestLocation()
         mapInit()
+        formInit()
         
         deviceUDID = (UIDevice.current.identifierForVendor?.uuidString)!
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func updateMyLocation(_ sender: AnyObject) {
+        requestLocation()
     }
     
     func requestLocation() {
@@ -105,14 +114,6 @@ class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             address += city + ", "
         }
         
-        if let state = placemark.administrativeArea {
-            address += state + ", "
-        }
-        
-        if let postcode = placemark.postalCode {
-            address += postcode + "."
-        }
-        
         return address
     }
     
@@ -123,7 +124,6 @@ class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
-        print("didUpdateLocations \(newLocation)")
         location = newLocation
         
         if let location = location {
@@ -143,19 +143,22 @@ class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             
             if let placemark = placemark {
                 locationString = obtainAddress(placemark: placemark)
+                locationLabel.text = locationString
+                focusMapAt(point: location)
                 stopLocationManager()
+                print(locationString)
             } else {
-                locationString = "Could not obtain address."
+                locationString = "No address for current location."
             }
         }
     }
     
     func mapInit() {
-        mapView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        mapView.frame = CGRect(x: 15, y: headerheight + 15, width: width - 30, height: height * 0.4)
         mapView.delegate = self
         mapView.mapType = .standard
-        mapView.isZoomEnabled = true
-        mapView.isScrollEnabled = true
+        mapView.isZoomEnabled = false
+        mapView.isScrollEnabled = false
         
         view.addSubview(mapView)
         
@@ -164,13 +167,42 @@ class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         }
     }
     
+    func formInit() {
+        let iconSize = width * 0.1
+        
+        let locationIcon = UIImage(named: "location.png")
+        let locationImage = UIImageView(image: locationIcon)
+        locationImage.frame = CGRect(x: 25, y: headerheight + (height * 0.4) + 30, width: iconSize, height: iconSize)
+        view.addSubview(locationImage)
+    
+        locationLabel.frame = CGRect(x: 40 + iconSize, y: headerheight + (height * 0.4) + 30, width: width - 65 - iconSize, height: iconSize)
+        locationLabel.textAlignment = .left
+        locationLabel.text = locationString
+        view.addSubview(locationLabel)
+        
+        let userIcon = UIImage(named: "user.png")
+        let userImage = UIImageView(image: userIcon)
+        userImage.frame = CGRect(x: 25, y: headerheight + (height * 0.4) + 45 + iconSize, width: iconSize, height: iconSize)
+        view.addSubview(userImage)
+        
+        let phoneIcon = UIImage(named: "phone.png")
+        let phoneImage = UIImageView(image: phoneIcon)
+        phoneImage.frame = CGRect(x: 25, y: headerheight + (height * 0.4) + 60 + (2 * iconSize), width: iconSize, height: iconSize)
+        view.addSubview(phoneImage)
+    }
+    
     func focusMapAt(point: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude), 1000, 1000)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude), 300, 300)
         mapView.setRegion(coordinateRegion, animated: true)
         
+        if isMyLocationPinned {
+            self.mapView.removeAnnotation(myLocationAnnotation)
+        }
+        
         let pinLocation = CLLocationCoordinate2DMake(point.coordinate.latitude, point.coordinate.longitude)
-        let pinAnnotation = MKPointAnnotation()
-        pinAnnotation.coordinate = pinLocation
-        self.mapView.addAnnotation(pinAnnotation)
+        myLocationAnnotation = MKPointAnnotation()
+        myLocationAnnotation.coordinate = pinLocation
+        self.mapView.addAnnotation(myLocationAnnotation)
+        isMyLocationPinned = true
     }
 }

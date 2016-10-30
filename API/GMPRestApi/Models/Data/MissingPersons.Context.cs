@@ -35,7 +35,7 @@ namespace GMPRestApi.Models.Data
         public virtual DbSet<PeopleTag> PeopleTags { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
     
-        public virtual ObjectResult<CalculateDistance_Result> CalculateDistance(Nullable<decimal> orig_lat, Nullable<decimal> orig_lng)
+        public virtual ObjectResult<CalculateCoordDistance_Result> CalculateCoordDistance(Nullable<decimal> orig_lat, Nullable<decimal> orig_lng)
         {
             var orig_latParameter = orig_lat.HasValue ?
                 new ObjectParameter("orig_lat", orig_lat) :
@@ -45,7 +45,7 @@ namespace GMPRestApi.Models.Data
                 new ObjectParameter("orig_lng", orig_lng) :
                 new ObjectParameter("orig_lng", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CalculateDistance_Result>("CalculateDistance", orig_latParameter, orig_lngParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CalculateCoordDistance_Result>("CalculateCoordDistance", orig_latParameter, orig_lngParameter);
         }
     }
 }

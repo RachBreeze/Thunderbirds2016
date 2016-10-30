@@ -39,11 +39,15 @@ namespace GMPRestApi.Controllers
         {
             List<Profile> retProfiles = new List<Profile>();
             GMPRestApi.Models.Data.GMPMissingPersonEntities entities = new GMPRestApi.Models.Data.GMPMissingPersonEntities();
-            var persons=  entities.CalculateDistance(latitude, longitude);
+            var persons=  entities.CalculateCoordDistance(latitude, longitude);
             foreach (var person in persons.Where(x =>x.distance<=distanceKM))
             {
                     Profile profile = ReadProfile(person);
                     retProfiles.Add(profile);
+                if (retProfiles.Count == 10)
+                {
+                    break;
+                }
                 }
 
                 return retProfiles;
@@ -86,9 +90,11 @@ namespace GMPRestApi.Controllers
                     profile.Tags.Add(tag.Tag.TagName);
                 }
             }
+            profile.Status = person.Status;
+            profile.Tags.Add(person.Category);
             return profile;
         }
-        private Profile ReadProfile(CalculateDistance_Result person)
+        private Profile ReadProfile(CalculateCoordDistance_Result person)
         {
             Profile profile = new Profile();
             profile.LastSeen = person.Date_Went_Missing.Value;
@@ -103,6 +109,8 @@ namespace GMPRestApi.Controllers
             profile.Forename = person.Forenames;
             profile.Surname = person.Surname;
             profile.IsDangerous = person.Is_Dangerous == "Y";
+            profile.Status=person.status;
+            profile.Tags.Add(person.category);
             return profile;
         }
 

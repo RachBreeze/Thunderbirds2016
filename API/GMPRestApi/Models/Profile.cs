@@ -23,5 +23,6 @@ namespace GMPRestApi.Models
         public int Age { get; set; }
         public bool IsDangerous { get; set; }
         public StringCollection Tags { get; set; }
+        public string Status { get; set; }
     }
 }

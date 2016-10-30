@@ -87,5 +87,5 @@ namespace GMPRestApi.Controllers
             }
             return sightings;
         }
-    }
+        }
 }

@@ -147,6 +147,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CalculateDistance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orig_lat" Type="decimal" Mode="In" />
+          <Parameter Name="orig_lng" Type="decimal" Mode="In" />
+        </Function>
         <EntityContainer Name="GMPMissingPersonModelStoreContainer">
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationTypes" EntityType="Self.LocationTypes" Schema="dbo" store:Type="Tables" />
@@ -266,6 +270,10 @@
             <End Role="Tag" EntitySet="Tags" />
             <End Role="PeopleTag" EntitySet="PeopleTags" />
           </AssociationSet>
+          <FunctionImport Name="CalculateDistance" ReturnType="Collection(GMPMissingPersonModel.CalculateDistance_Result)">
+            <Parameter Name="orig_lat" Mode="In" Type="Decimal" />
+            <Parameter Name="orig_lng" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Location">
           <Key>
@@ -379,6 +387,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="CalculateDistance_Result">
+          <Property Type="String" Name="Unique_ID" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Date_Went_Missing" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Birth_Year" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Forenames" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Surname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Is_Dangerous" Nullable="true" MaxLength="1" />
+          <Property Type="Double" Name="distance" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -474,6 +494,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CalculateDistance" FunctionName="GMPMissingPersonModel.Store.CalculateDistance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GMPMissingPersonModel.CalculateDistance_Result">
+                <ScalarProperty Name="Unique_ID" ColumnName="Unique_ID" />
+                <ScalarProperty Name="Date_Went_Missing" ColumnName="Date_Went_Missing" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birth_Year" ColumnName="Birth_Year" />
+                <ScalarProperty Name="Forenames" ColumnName="Forenames" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Is_Dangerous" ColumnName="Is_Dangerous" />
+                <ScalarProperty Name="distance" ColumnName="distance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

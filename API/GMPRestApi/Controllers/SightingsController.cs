@@ -30,14 +30,18 @@ namespace GMPRestApi.Controllers
                 location.ContactNumber = sighting.ContactNumber;
                 location.Latitude = sighting.Latitude;
                 location.LocationTypeID = socialMediaType.ID;
-                person.Locations.Add(location);
+                location.Verified = "N";
+                location.SightingDate=DateTime.Now;
                 entities.Locations.Add(location);
                 entities.Locations.AddOrUpdate();
+                entities.SaveChanges();
+                person.Locations.Add(location);
                 var phoneData=new Models.Data.PhoneData();
                 location.PhoneDatas.Add(phoneData);
                 phoneData.LocationID = location.ID;
                 phoneData.DeviceID = sighting.DeviceID;
-                person.Locations.Add(location);
+                entities.PhoneDatas.AddOrUpdate();
+                entities.misper_.AddOrUpdate();
                 entities.SaveChanges();
             }
         }

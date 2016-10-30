@@ -3,6 +3,9 @@ import UIKit
 import MapKit
 import CoreLocation
 
+var selectedID = ""
+var selectedSurname = ""
+
 class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
@@ -191,7 +194,7 @@ class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         
         userLabel.frame = CGRect(x: 40 + iconSize, y: headerheight + (height * 0.4) + 45 + iconSize, width: width - 65 - iconSize, height: iconSize)
         userLabel.textAlignment = .left
-        userLabel.text = "No profile selected"
+        userLabel.text = (selectedSurname == "") ? "No profile selected" : selectedSurname
         userLabel.font = UIFont(name: "SourceSansPro-Regular", size: 17.0)
         view.addSubview(userLabel)
         
@@ -218,7 +221,7 @@ class ReportViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     func submitSighting() {
         if userLabel.text != "No profile selected" {
             if let location = location {
-                postJSON(userID: "383A353A3A363A3A3239", lat: location.coordinate.latitude, long: location.coordinate.longitude, contactNo: phoneLabel.text!, deviceID: deviceUDID)
+                postJSON(userID: selectedID, lat: location.coordinate.latitude, long: location.coordinate.longitude, contactNo: phoneLabel.text!, deviceID: deviceUDID)
             }
         } else {
             let alert = UIAlertController(title: "No Profile Selected",

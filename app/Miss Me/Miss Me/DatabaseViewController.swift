@@ -60,6 +60,19 @@ class DatabaseViewController: UITableViewController {
         return people.count
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Selection Confirmed",
+                                      message: "You have now selected " + people[indexPath.row].surname,
+                                      preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "Okay.", style: .default, handler: nil)
+        alert.addAction(okayAction)
+        present(alert, animated: true, completion: {
+            tableView.deselectRow(at: indexPath, animated: true)
+            selectedID = people[indexPath.row].userID
+            selectedSurname = people[indexPath.row].surname
+        })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

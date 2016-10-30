@@ -100,14 +100,14 @@ class SettingsViewController: UIViewController {
                 return
             }
             print("response = \(response)")
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
 //                if let parseJSON = json {
 //                    
 //                }
-            } catch {
-                print(error)
-            }
+//            } catch {
+//                print(error)
+//            }
         }
         task.resume()
     }

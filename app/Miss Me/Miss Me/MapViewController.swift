@@ -26,6 +26,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     var mapView = MKMapView()
     
+    var missingAnnotations = [MKPointAnnotation]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,11 +36,30 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         requestLocation()
         mapInit()
+        
+        if let location = location {
+            readJSON(lat: location.coordinate.latitude, long: location.coordinate.longitude)
+        }
     }
     
     @IBAction func pressedButton(_ sender: AnyObject) {
         requestLocation()
+        pinMissingLocation()
         pinCurrentLocation()
+    }
+    
+    func pinMissingLocation() {
+        mapView.removeAnnotations(missingAnnotations)
+        missingAnnotations = [MKPointAnnotation]()
+        
+        let annotation = MKPointAnnotation()
+        for a in (0 ..< people.count) {
+            let location = CLLocationCoordinate2DMake(people[a].latitude, people[a].longtitude)
+            annotation.coordinate = location
+            annotation.title = people[a].surname
+            self.mapView.addAnnotation(annotation)
+            missingAnnotations.append(annotation)
+        }
     }
     
     func requestLocation() {
@@ -74,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func startLocationManager() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
             
             isUpdatingLocation = true

@@ -71,6 +71,7 @@ namespace GMPRestApi.Controllers
                         displayTweet.DateTime = tweet.TweetDate;
                         displayTweet.TweetId = tweet.TweetID;
                         displayTweet.UserID = tweet.Unique_id;
+                        displayTweet.TwitterHandle = extended.TwitterName;
                         retTweets.Add(displayTweet);
                     }
                 }

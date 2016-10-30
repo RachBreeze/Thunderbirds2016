@@ -5,7 +5,7 @@ export default {
     bindings: {
         profile: '<'
     },
-    controller: function (AlzimersPattern) {
+    controller: function (AlzimersPattern,ToddlerPattern, mockSupermarkets, Sighting) {
         "ngInject";
 
         let styles = [{"featureType":"administrative.province","elementType":"geometry.fill","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#ffe4e4"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#ffd5db"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#bddcff"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#eef5fd"}]}];
@@ -19,10 +19,19 @@ export default {
             }
         };
 
+        this.getSupermarkets = () => {
+            return mockSupermarkets;
+        }
+
         this.advice = [];
 
+        this.sync = () => {
+            this.syncAdvice();
+            this.syncSightings();
+        }
+
         this.syncAdvice = () => {
-            let advices = [AlzimersPattern];
+            let advices = [AlzimersPattern, ToddlerPattern];
             let profile = this.profile;
 
             let results = [];
@@ -37,10 +46,30 @@ export default {
         };
 
         this.getAdviceMap = () => {
-            console.log("ADVICE MAP:", this.advice[0].getMapEffect());
+            if (this.advice.length == 0 || this.advice[0] === undefined) {
+                return undefined;
+            };
+
             return this.advice[0].getMapEffect();
         }
 
+        this.syncSightings = () => {
+            this.loading = true;
+
+            return Sighting.query().$promise.then((sightings) => {
+                this.sightings = sightings;
+            }).finally(() => {
+                this.loading = false;
+            });
+        };
+
+        this.getSightings = () => {
+            return this.sightings || [];
+        }
+
+        this.getTweetIds = () => {
+            
+        }
     },
     controllerAs:'Profile'
 }

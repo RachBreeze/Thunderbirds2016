@@ -12,4 +12,5 @@ import config from './app.config.js';
 
 let app = angular.module('missme', [components, shared, 'ngMaterial', 'uiGmapgoogle-maps'])
     .config(config)
-    .constant('API_URL', 'http://192.168.226.201:54621');
+    .constant('API_URL', 'http://192.168.226.201:54621')
+    .constant('API_DOWN', true);

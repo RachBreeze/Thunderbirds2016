@@ -1,0 +1,22 @@
+<md-card ng-init="ProfileSocialTwitter.sync()">
+    <md-card-header>
+        <md-card-header-text>
+        <span class="md-title">Twitter</span>
+        <span class="md-subhead">Check missing persons Twitter for tweets since report.</span>
+        </md-card-header-text>
+    </md-card-header>
+    <md-card-content layout="column">
+        <div ng-if="ProfileSocialTwitter.downloading === true" layout="row" layout-align="center center">
+            <span>Downloading Twitter data</span>
+        </div>
+        <md-list ng-if="!ProfileSocialTwitter.downloading === true">
+            <md-subheader class="md-no-sticky">Latest tweets since missing...</md-subheader>
+            <md-list-item class="md-3-line" ng-repeat="tweet in ProfileSocialTwitter.getTweets()" ng-click="null" layout="row">
+                <div class="md-list-item-text" layout="column">
+                    <h3>Tweeted at: <span ng-bind="tweet.DateTime | date:'yyyy-MM-dd'"></span></h3>
+                    <h4><a ng-href="{{tweet.getURL()}}">Click here to open</a></h4>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>

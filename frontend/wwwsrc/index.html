@@ -12,13 +12,16 @@
 
 <body ng-app="missme">
 	<mm-app>
-		<md-content layout="column">
-            <mm-toolbar></mm-toolbar>
-            <mm-sidebar></mm-sidebar>
-            <md-content flex layout="column">
-                <mm-map flex></mm-map>
-            </md-content>
-        </md-content>
+		<mm-filter>
+			<md-content layout="column">
+				<mm-toolbar></mm-toolbar>
+				<mm-sidebar></mm-sidebar>
+				<mm-userbar></mm-userbar>
+				<md-content flex layout="column">
+					<mm-map flex></mm-map>
+				</md-content>
+			</md-content>
+		</mm-filter>
 	</mm-app>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js"></script>
 	<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>

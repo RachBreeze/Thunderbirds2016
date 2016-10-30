@@ -1,0 +1,29 @@
+<md-sidenav class="md-sidenav-right" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">
+            <span>
+                <md-icon class="ionicons" md-font-icon="ion-users"></md-icon>Profiles
+            </span>
+        </h1>
+      </md-toolbar>
+    <md-content layout-padding>
+        <div layout="column">
+            <md-input-container>
+                <label>Search</label>
+                <input type="text" ng-model="Userbar.search">
+            </md-input-container>
+            <md-list flex>
+                <md-list-item class="md-3-line" ng-repeat="profile in Userbar.mmApp.profiles | filter:Userbar.search track by profile.UserID" ng-click="Userbar.openProfile(profile, $event)">
+                    <div class="md-list-item-text">
+                        <h3 ng-bind="profile.getFullName()"></h3>
+                        <h4>Tags: <span ng-repeat="tag in profile.getTags()">
+                                 <span ng-bind="tag"></span>
+                                 <span ng-if="!$last">, </span>
+                            </span></h4>
+                        <p>Age: <span ng-bind="profile.Age"></span></p>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </div>
+    </md-content>
+</md-sidenav>

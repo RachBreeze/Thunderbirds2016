@@ -1,0 +1,40 @@
+mm-loading{
+  display:block;
+  transition: 0.5s linear opacity;
+  position:fixed;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  z-index:9999;
+  background: rgba(0, 0, 0, 0.5);
+
+  &.ng-enter, &.ng-leave.ng-leave-active {
+      opacity:0;
+  }
+
+  &.ng-enter.ng-enter-active, &.ng-leave {
+      opacity: 1;
+  }
+
+  .module-loading {
+    width:100%;
+    height:100%;
+    
+    >div {
+      width:100%;
+      height:100%;
+
+      .panel{
+        width: 15em;
+        height: 15em;
+        background: rgba(0,0,0,0.7);
+        border-radius: 1em;
+
+        md-progress-circular {
+          margin-bottom:1em;
+        }
+      }
+    }
+  }
+}

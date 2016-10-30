@@ -1,0 +1,69 @@
+.legend{
+    >div {
+        display:inline-flex;
+        float:left;
+        height:2em;
+        line-height:2em;
+        padding-left:2em;
+        position:relative;
+
+        img {
+            position:absolute;
+            left:0px;
+            width:2em;
+        }
+    }
+}
+
+md-dialog {
+    width:80%; height: 80%;
+
+    md-dialog-content, ui-gmap-google-map {
+        min-height: calc(100vh - 48px);
+    }
+}
+
+.map-container {
+    position:relative; height:55vh;
+}
+
+@media (max-width:800px) {
+    md-dialog {
+        max-width:none;
+        max-height:none;
+        width:100%;
+        height:100%;
+    }
+
+    .legend {
+        font-size:50%;
+        margin-top: -1.5em;
+    }
+
+    .map-container {
+        height: calc(100vh - 180px);
+    }
+}
+
+mm-profile {
+    width:100%;
+    height:100%;
+    display:block;
+
+    > form {
+        height:100%;
+    }
+}
+
+.profile-picture {
+    height:200px;
+    width:100%;
+    background-color:black;
+    
+    img {
+        width: auto;
+        max-height: 100%;
+        margin: auto;
+        display: block;
+    }
+}

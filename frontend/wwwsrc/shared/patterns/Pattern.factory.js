@@ -1,6 +1,7 @@
 export default function () {
     class Pattern {
         constructor(name) {
+            this.name = name;
             this.conditions = [];
             this.advice = [];
         }

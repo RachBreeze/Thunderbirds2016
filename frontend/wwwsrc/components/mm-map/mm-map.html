@@ -1,7 +1,9 @@
 <ui-gmap-google-map class="fullscreen-map" center='Map.map.center' zoom='Map.map.zoom' options="Map.map.options">
     <ui-gmap-marker
-        ng-repeat="profile in Map.mmApp.profiles"
+        ng-if="Map.doesPassFilter(profile)"
+        ng-repeat="profile in Map.getProfiles()"
             idkey='profile.UserID'
+            options="profile.getMarkerOptions()"
             coords='profile.getLatLng()'
             click="Map.openProfile(profile, $event)">
     </ui-gmap-marker>

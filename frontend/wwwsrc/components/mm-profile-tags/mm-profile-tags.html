@@ -1,0 +1,17 @@
+<div ng-init="ProfileTags.init()">
+    <div ng-if="ProfileTags.mmProfile.profile.getTags().length > 0">
+        <md-list flex>
+            <md-subheader class="md-no-sticky"><h2><i class="ionicons ion-link"></i> Tags</h2></md-subheader>
+            <md-list-item class="md-3-line" ng-click="null">
+            <div class="md-list-item-text" layout="column" style="margin:0px">
+                <md-chips class="custom-chips" ng-model=":: ProfileTags.tags" readonly="true"
+                    md-transform-chip="ctrl.newVeg($chip)" md-removable="false">
+                    <md-chip-template>
+                        <span ng-bind="$chip"></span>
+                    </md-chip-template>
+                </md-chips>
+            </div>
+            </md-list-item>
+        </md-list>
+    </div>
+</div>

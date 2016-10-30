@@ -1,12 +1,13 @@
-<md-dialog aria-label="List dialog" style="width:80%; height: 80%">
-	<md-dialog-content>
+<md-dialog aria-label="List dialog" layout="column">
+	<md-dialog-content flex>
 		<mm-profile profile="$mmProfile.profile"></mm-profile>
 	</md-dialog-content>
 	<md-dialog-actions>
-		<md-button ng-click="$mmProfile.adviceMap()" class="md-primary">
-			Advice Map
-		</md-button>
-        <div flex></div>
+        <div flex layout="row" class="legend">
+			<div flex="20" ng-repeat="entry in $mmProfile.legend" style="font-size:75%">
+				<img ng-src="{{entry.img}}"> <span ng-bind="entry.title"></span>
+			</div>
+		</div>
 		<md-button ng-click="$mmProfile.close()" class="md-primary">
 			Close
 		</md-button>

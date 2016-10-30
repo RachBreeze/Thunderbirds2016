@@ -87,6 +87,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TagName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tweets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Unique_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TweetID" Type="bigint" Nullable="false" />
+          <Property Name="TweetDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Locations_LocationTypes">
           <End Role="misper " Type="Self.misper " Multiplicity="1" />
           <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
@@ -147,6 +156,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tweets_misper ">
+          <End Role="misper " Type="Self.misper " Multiplicity="1" />
+          <End Role="Tweets" Type="Self.Tweets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="misper ">
+              <PropertyRef Name="Unique_ID" />
+            </Principal>
+            <Dependent Role="Tweets">
+              <PropertyRef Name="Unique_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CalculateCoordDistance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orig_lat" Type="decimal" Mode="In" />
+          <Parameter Name="orig_lng" Type="decimal" Mode="In" />
+        </Function>
         <EntityContainer Name="GMPMissingPersonModelStoreContainer">
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationTypes" EntityType="Self.LocationTypes" Schema="dbo" store:Type="Tables" />
@@ -155,6 +180,7 @@
           <EntitySet Name="PeopleTags" EntityType="Self.PeopleTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneData" EntityType="Self.PhoneData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tweets" EntityType="Self.Tweets" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Locations_LocationTypes" Association="Self.FK_Locations_LocationTypes">
             <End Role="misper " EntitySet="misper " />
             <End Role="Locations" EntitySet="Locations" />
@@ -174,6 +200,10 @@
           <AssociationSet Name="FK_PhoneData_Locations" Association="Self.FK_PhoneData_Locations">
             <End Role="Locations" EntitySet="Locations" />
             <End Role="PhoneData" EntitySet="PhoneData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tweets_misper " Association="Self.FK_Tweets_misper ">
+            <End Role="misper " EntitySet="misper " />
+            <End Role="Tweets" EntitySet="Tweets" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -206,6 +236,7 @@
           <NavigationProperty Name="Locations" Relationship="GMPMissingPersonModel.FK_Locations_LocationTypes" FromRole="misper_" ToRole="Location" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="PeopleTags" Relationship="GMPMissingPersonModel.FK_people_tags_misper_" FromRole="misper_" ToRole="PeopleTag" />
+          <NavigationProperty Name="Tweets" Relationship="GMPMissingPersonModel.FK_Tweets_misper_" FromRole="misper_" ToRole="Tweet" />
         </EntityType>
         <EntityType Name="Misper_Extended">
           <Key>
@@ -265,6 +296,23 @@
           <AssociationSet Name="FK_people_tags_people_tags1" Association="GMPMissingPersonModel.FK_people_tags_people_tags1">
             <End Role="Tag" EntitySet="Tags" />
             <End Role="PeopleTag" EntitySet="PeopleTags" />
+          </AssociationSet>
+          <FunctionImport Name="CalculateDistance" ReturnType="Collection(GMPMissingPersonModel.CalculateDistance_Result)">
+            <Parameter Name="orig_lat" Mode="In" Type="Decimal" />
+            <Parameter Name="orig_lng" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="CalculateDistanceFromCoord" ReturnType="Collection(GMPMissingPersonModel.CalculateDistanceFromCoord_Result)">
+            <Parameter Name="orig_lat" Mode="In" Type="Decimal" />
+            <Parameter Name="orig_lng" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="CalculateCoordDistance" ReturnType="Collection(GMPMissingPersonModel.CalculateCoordDistance_Result)">
+            <Parameter Name="orig_lat" Mode="In" Type="Decimal" />
+            <Parameter Name="orig_lng" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="Tweets" EntityType="GMPMissingPersonModel.Tweet" />
+          <AssociationSet Name="FK_Tweets_misper_" Association="GMPMissingPersonModel.FK_Tweets_misper_">
+            <End Role="misper_" EntitySet="misper_" />
+            <End Role="Tweet" EntitySet="Tweets" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Location">
@@ -379,6 +427,68 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="CalculateDistance_Result">
+          <Property Type="String" Name="Unique_ID" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Date_Went_Missing" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Birth_Year" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Forenames" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Surname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Is_Dangerous" Nullable="true" MaxLength="1" />
+          <Property Type="Double" Name="distance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CalculateDistanceFromCoord_Result">
+          <Property Type="String" Name="Unique_ID" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Date_Went_Missing" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Birth_Year" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Forenames" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Surname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Is_Dangerous" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="category" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="distance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CalculateCoordDistance_Result">
+          <Property Type="String" Name="Unique_ID" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Date_Went_Missing" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Birth_Year" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Forenames" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Surname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Is_Dangerous" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="category" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="distance" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Tweet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Unique_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TweetID" Type="Int64" Nullable="false" />
+          <Property Name="TweetDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="misper_" Relationship="GMPMissingPersonModel.FK_Tweets_misper_" FromRole="Tweet" ToRole="misper_" />
+        </EntityType>
+        <Association Name="FK_Tweets_misper_">
+          <End Type="GMPMissingPersonModel.misper_" Role="misper_" Multiplicity="1" />
+          <End Type="GMPMissingPersonModel.Tweet" Role="Tweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="misper_">
+              <PropertyRef Name="Unique_ID" />
+            </Principal>
+            <Dependent Role="Tweet">
+              <PropertyRef Name="Unique_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -471,6 +581,34 @@
               <MappingFragment StoreEntitySet="Tags">
                 <ScalarProperty Name="TagName" ColumnName="TagName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CalculateCoordDistance" FunctionName="GMPMissingPersonModel.Store.CalculateCoordDistance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GMPMissingPersonModel.CalculateCoordDistance_Result">
+                <ScalarProperty Name="Unique_ID" ColumnName="Unique_ID" />
+                <ScalarProperty Name="Date_Went_Missing" ColumnName="Date_Went_Missing" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birth_Year" ColumnName="Birth_Year" />
+                <ScalarProperty Name="Forenames" ColumnName="Forenames" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Is_Dangerous" ColumnName="Is_Dangerous" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="distance" ColumnName="distance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Tweets">
+            <EntityTypeMapping TypeName="GMPMissingPersonModel.Tweet">
+              <MappingFragment StoreEntitySet="Tweets">
+                <ScalarProperty Name="TweetDate" ColumnName="TweetDate" />
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+                <ScalarProperty Name="Unique_id" ColumnName="Unique_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

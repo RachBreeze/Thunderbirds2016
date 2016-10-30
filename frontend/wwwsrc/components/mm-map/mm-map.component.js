@@ -1,13 +1,36 @@
+import _ from 'lodash';
 import './mm-map.scss';
 import template from './mm-map.html';
 
 export default {
     template,
     require: {
-        mmApp: '^^'
+        mmApp: '^^',
+        mmFilter: '^^'
     },
     controller: function ($mmProfile) {
         "ngInject";
+
+        this.getProfiles = _.memoize(() => {
+            return this.mmApp.profiles;
+        }, () => {
+            return this.mmApp.profiles.map((profile) => profile.UserID).join(',');
+        });
+
+        this.doesPassFilter = (profile) => {
+            if (this.mmFilter.name && profile.getFullName().indexOf(this.mmFilter.name) === -1) {
+                return false;
+            };
+
+            if (this.mmFilter.date) {
+                if (this.mmFilter.date.getMonth() !== profile.LastSeen.getMonth() ||
+                this.mmFilter.date.getDate() !== profile.LastSeen.getDate()); {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         this.adviceRenderer = undefined;
 

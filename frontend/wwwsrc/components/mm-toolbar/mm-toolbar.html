@@ -1,12 +1,11 @@
 <md-toolbar>
     <div class="md-toolbar-tools" layout="row">
-        <md-button class="md-fab" aria-label="FAB" ng-click="Toolbar.openSidenav()">
-            <md-icon class="ionicons" md-font-icon="ion-android-menu" ></md-icon>
+        <md-button ng-click="Toolbar.openSidenav()">
+            <md-icon class="ionicons" md-font-icon="ion-android-menu"></md-icon> Menu
         </md-button>
-        <span>MissMe</span>
-        <span flex></span>
-        <md-button>
-            Refresh
+        <span flex style="opacity:0.6; font-weight:bold; text-align:center;">MissMe</span>
+        <md-button ng-click="Toolbar.openUsernav()">
+             <md-icon class="ionicons" md-font-icon="ion-ios-people"></md-icon> Profiles
         </md-button>
     </div>
 </md-toolbar>

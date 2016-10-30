@@ -3,27 +3,31 @@
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">
             <span>
-            <md-icon class="ionicons" md-font-icon="ion-android-funnel"></md-icon>Filters
+                <md-icon class="ionicons" md-font-icon="ion-android-call"></md-icon>Helplines
             </span>
-        
         </h1>
       </md-toolbar>
-    <md-content layout-padding>
+    <md-content>
         <div class="gmp-logo"></div>
         <div class="lad-bible-logo"></div>
-        <div>
-            <md-input-container>
-                <label>Full Name</label>
-                <input type="text" ng-model="user.name">
-            </md-input-container>
-            <md-input-container>
-                <label>Day</label>
-                <input type="text" ng-model="user.name">
-            </md-input-container>
-            <md-input-container>
-                <label>Time Range</label>
-                <input type="text" ng-model="user.name">
-            </md-input-container>
+        <div layout="column">
+            <div style="padding-left:1em; padding-right:1em;">
+                <md-input-container>
+                    <label>Search Helplines</label>
+                    <input type="text" ng-model="Sidebar.mmFilter.name">
+                </md-input-container>
+            </div>
+            <md-list flex>
+                <md-subheader class="md-no-sticky">Helplines Directory</md-subheader>
+                <md-list-item class="md-3-line" ng-repeat="contact in Sidebar.getContacts() | filter:Sidebar.mmFilter.name" ng-click="null">
+                <img ng-src="{{contact.icon}}" class="md-avatar" />
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{ contact.title }}</h3>
+                    <h4><i class="ionicons ion-android-call"></i> {{ contact.number }}</h4>
+                    <p style="height: 2em;overflow: hidden;text-overflow: ellipsis;">{{ contact.details }}</p>
+                </div>
+                </md-list-item>
+            </md-list>
         </div>
     </md-content>
 </md-sidenav>

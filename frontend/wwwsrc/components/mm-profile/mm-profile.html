@@ -1,4 +1,4 @@
-<form ng-init="Profile.syncAdvice()">
+<form ng-init="Profile.sync()" layout="column">
 	<md-toolbar>
 		<div class="md-toolbar-tools">
 		<h2 ng-bind="Profile.profile.getFullName()"></h2>
@@ -7,35 +7,44 @@
 	</md-toolbar>
 	<md-dialog-content style="max-width:800px;max-height:810px; ">
 		<md-tabs md-dynamic-height md-border-bottom>
-		<md-tab label="Profile">
-			<md-content class="md-padding">
-				<img ng-src="{{Profile.profile.getImage()}}" class="md-card-image" alt="Image here">
-				<md-card-title>
-					<md-card-title-text>
-						<span class="md-headline" ></span>
-					</md-card-title-text>
-				</md-card-title>
-				<md-card-content>
-					<mm-profile-advice></mm-profile-advice>
-				</md-card-content>
-			</md-content>
-		</md-tab>
-		<md-tab label="Advice Map">
-			<md-content class="md-padding" style="position:relative; height:55vh;">
-				<ui-gmap-google-map class="fullscreen-map" center='::Profile.profile.getLatLng()' zoom='12' options="Profile.map.options">
-					<ui-gmap-marker idkey='Profile.profile.UserID' coords='::Profile.profile.getLatLng()'></ui-gmap-marker>
-					<ui-gmap-circle ng-if="Profile.getAdviceMap().circle !== undefined"
-							center='::Profile.profile.getLatLng()'
-							radius='Profile.getAdviceMap().circle.radius'
-							fill='Profile.getAdviceMap().circle.fill'
-							stroke='Profile.getAdviceMap().circle.stroke'
-							draggable='false'
-							editable='false'
-							visible='true'>
-					</ui-gmap-circle>
-				</ui-gmap-google-map>
-			</md-content>
-		</md-tab>
+			<md-tab label="Profile">
+				<md-content>
+					<div class="profile-picture">
+						<img ng-src="{{Profile.profile.ProfileURL}}" class="md-card-image" alt="Image here">
+					</div>
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline" ></span>
+						</md-card-title-text>
+					</md-card-title>
+					<md-card-content>
+						<mm-profile-dangerous></mm-profile-dangerous>
+						<mm-profile-tags></mm-profile-tags>
+						<mm-profile-advice></mm-profile-advice>
+					</md-card-content>
+				</md-content>
+			</md-tab>
+			<md-tab label="Advice Map">
+				<md-content class="md-padding map-container">
+					<ui-gmap-google-map class="fullscreen-map" center='::Profile.profile.getLatLng()' zoom='12' options="Profile.map.options">
+						<ui-gmap-marker idkey='Profile.profile.UserID' coords='::Profile.profile.getLatLng()' options="Profile.profile.getMarkerOptions()"></ui-gmap-marker>
+						<ui-gmap-circle ng-if="Profile.getAdviceMap().circle !== undefined"
+								center='::Profile.profile.getLatLng()'
+								radius='Profile.getAdviceMap().circle.radius'
+								fill='Profile.getAdviceMap().circle.fill'
+								stroke='Profile.getAdviceMap().circle.stroke'
+								draggable='false'
+								editable='false'
+								visible='true'>
+						</ui-gmap-circle>
+						<ui-gmap-marker ng-if="Profile.getAdviceMap().supermarkets === true" ng-repeat="marker in Profile.getSupermarkets()" idkey="$index" coords="marker.coords" options="marker.options"></ui-gmap-marker>
+						<ui-gmap-marker ng-repeat="sighting in Profile.getSightings()" idkey="sighting.getId()" coords="sighting.getLatLng()" options="sighting.getMarkerOptions()"></ui-gmap-marker>
+					</ui-gmap-google-map>
+				</md-content>
+			</md-tab>
+			<md-tab label="Social Media">
+				<mm-profile-social-twitter></mm-profile-social-twitter>
+			</md-tab>
 		</md-tabs>
 	</md-dialog-content>
 </form>

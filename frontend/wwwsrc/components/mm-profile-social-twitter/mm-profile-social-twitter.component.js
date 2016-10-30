@@ -10,7 +10,7 @@ export default {
         
         this.downloading = false;
 
-        let mockData = mock.map(Tweet.transformResponse).map((tweet) => new Tweet(tweet));]
+        let mockData = mock.map(Tweet.transformResponse).map((tweet) => new Tweet(tweet));
 
         this.sync = () => {
             this.downloading = true;

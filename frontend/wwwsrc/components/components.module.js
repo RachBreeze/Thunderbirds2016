@@ -9,6 +9,7 @@ import mmProfileAdvice from './mm-profile-advice/mm-profile-advice.component.js'
 import mmProfileTags from './mm-profile-tags/mm-profile-tags.component.js';
 import mmProfileDangerous from './mm-profile-dangerous/mm-profile-dangerous.component.js';
 import mmProfileSocialTwitter from './mm-profile-social-twitter/mm-profile-social-twitter.component.js';
+import mmProfileSocialInstagram from './mm-profile-social-instagram/mm-profile-social-instagram.component.js';
 import mmFilter from './mm-filter/mm-filter.component.js';
 import mmUserbar from './mm-userbar/mm-userbar.component.js';
 import $mmProfile from './mm-profile/$mm-profile.service.js';
@@ -24,6 +25,7 @@ let componentsModule = angular.module('mm.components', [])
     .component('mmProfileTags', mmProfileTags)
     .component('mmProfileDangerous', mmProfileDangerous)
     .component('mmProfileSocialTwitter', mmProfileSocialTwitter)
+    .component('mmProfileSocialInstagram', mmProfileSocialInstagram)
     .component('mmFilter', mmFilter)
     .service('$mmProfile', $mmProfile);
 

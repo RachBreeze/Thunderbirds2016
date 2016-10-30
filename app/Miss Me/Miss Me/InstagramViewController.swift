@@ -71,11 +71,26 @@ func readJSON(lat: Double?, long: Double?) {
 
 class InstagramViewController: UIViewController {
     
+    var magicView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for i in self.view.subviews {
+            if i.tag == 100 {
+                i.isHidden = true
+                magicView = i
+            }
+        }
+        
+        let adTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(InstagramViewController.showIt), userInfo: nil, repeats: false)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func showIt() {
+        magicView.isHidden = false
     }
 }

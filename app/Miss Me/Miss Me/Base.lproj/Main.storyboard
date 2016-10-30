@@ -128,7 +128,7 @@
         <!--Instagram-->
         <scene sceneID="dkc-gq-vI7">
             <objects>
-                <viewController id="d0D-J0-GGb" customClass="SettingsViewController" customModule="Miss_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="d0D-J0-GGb" customClass="InstagramViewController" customModule="Miss_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WY4-C9-8C7"/>
                         <viewControllerLayoutGuide type="bottom" id="yyr-n5-Apv"/>
@@ -208,7 +208,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.88190323114395142" green="0.89399999380111694" blue="0.90638905763626099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yg-LX-jB5">
+                            <view tag="100" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yg-LX-jB5">
                                 <frame key="frameInset" minY="296" width="320" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>

@@ -6,6 +6,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    @IBAction func goInside(_ sender: AnyObject) {
+        performSegue(withIdentifier: "showMenu", sender: self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

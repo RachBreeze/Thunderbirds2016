@@ -34,6 +34,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         requestLocation()
         mapInit()
+        
+        readJSON()
     }
     
     @IBAction func pressedButton(_ sender: AnyObject) {

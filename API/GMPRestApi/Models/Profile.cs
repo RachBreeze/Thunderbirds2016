@@ -25,5 +25,6 @@ namespace GMPRestApi.Models
         public StringCollection Tags { get; set; }
         public string Status { get; set; }
         public string FacebookID { get; set; }
+        public string InstagramName { get; set; }
     }
 }

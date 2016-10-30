@@ -10,5 +10,6 @@ namespace GMPRestApi.Models
         public long TweetId { get; set; }
         public DateTime DateTime { get; set; }
         public string UserID { get; set; }
+        public string TwitterHandle { get; set; }
     }
 }

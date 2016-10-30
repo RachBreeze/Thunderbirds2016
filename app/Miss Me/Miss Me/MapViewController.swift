@@ -37,13 +37,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         requestLocation()
         mapInit()
         
-        readJSON()
+        if let location = location {
+            readJSON(lat: location.coordinate.latitude, long: location.coordinate.longitude)
+        }
     }
     
     @IBAction func pressedButton(_ sender: AnyObject) {
         requestLocation()
-        pinCurrentLocation()
         pinMissingLocation()
+        pinCurrentLocation()
     }
     
     func pinMissingLocation() {

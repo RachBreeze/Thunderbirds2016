@@ -14,7 +14,6 @@ class DatabaseViewController: UITableViewController {
     }
     
     @IBAction func refreshNearby(_ sender: AnyObject) {
-        readJSON()
         self.tableView.reloadData()
     }
     

@@ -62,6 +62,30 @@ namespace GMPRestApi.Controllers
                 entities.Locations.AddOrUpdate();
                 entities.SaveChanges();
             }
+
+        }
+        public List<SightingDetails> Get(string uniqueID)
+        {
+            List<SightingDetails> sightings=new List<SightingDetails>();
+            GMPRestApi.Models.Data.GMPMissingPersonEntities entities = new GMPRestApi.Models.Data.GMPMissingPersonEntities();
+            var person = entities.misper_.Where(x => x.Unique_ID == uniqueID).FirstOrDefault();
+            if (person != null)
+            {
+                foreach (var location in person.Locations)
+                {
+                  var locationType=entities.LocationTypes.Where(x=>x.ID==location.LocationTypeID).FirstOrDefault();
+                    SightingDetails sighting =new SightingDetails();
+                    sighting.Latitude = location.Latitude;
+                    sighting.Longitude = location.Longitude;
+                    sighting.UserID = location.Unique_ID;
+                    sighting.ContactNumber = location.ContactNumber;
+                    sighting.DateTime = location.SightingDate;
+                    sighting.IsVerified = location.Verified == "Y";
+                    sighting.LocationType = locationType.LocationType1;
+                    sightings.Add(sighting);  
+                }
+            }
+            return sightings;
         }
     }
 }

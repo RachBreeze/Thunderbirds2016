@@ -18,6 +18,7 @@
         <AssociationConnector Association="GMPMissingPersonModel.FK_people_tags_misper_" />
         <AssociationConnector Association="GMPMissingPersonModel.FK_people_tags_people_tags" />
         <AssociationConnector Association="GMPMissingPersonModel.FK_people_tags_people_tags1" />
+        <AssociationConnector Association="GMPMissingPersonModel.FK_Tweets_misper_" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

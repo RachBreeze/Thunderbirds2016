@@ -24,5 +24,6 @@ namespace GMPRestApi.Models
         public bool IsDangerous { get; set; }
         public StringCollection Tags { get; set; }
         public string Status { get; set; }
+        public string FacebookID { get; set; }
     }
 }

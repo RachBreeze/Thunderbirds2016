@@ -38,6 +38,29 @@ namespace GMPRestApi.Controllers
                 phoneData.LocationID = location.ID;
                 phoneData.DeviceID = sighting.DeviceID;
                 person.Locations.Add(location);
+                entities.SaveChanges();
+            }
+        }
+        [HttpPost]
+        public void Post([FromBody]Sighting sighting,int locationType)
+        {
+            GMPRestApi.Models.Data.GMPMissingPersonEntities entities = new GMPRestApi.Models.Data.GMPMissingPersonEntities();
+            Models.Data.misper_ person = entities.misper_.Where(x => x.Unique_ID == sighting.UserID).FirstOrDefault();
+            if (person == null)
+            {
+                throw new HttpException("Person not found");
+            }
+            else
+            {
+                var location = new Models.Data.Location();
+                location.Unique_ID = person.Unique_ID;
+                location.ContactNumber = sighting.ContactNumber;
+                location.Latitude = sighting.Latitude;
+                location.LocationTypeID = locationType;
+                person.Locations.Add(location);
+                entities.Locations.Add(location);
+                entities.Locations.AddOrUpdate();
+                entities.SaveChanges();
             }
         }
     }
